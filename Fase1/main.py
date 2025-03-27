@@ -12,9 +12,9 @@ print('Qual meio de transporte você usou hoje? (responda com SIM ou NÃO)')
 transporte_publico = input('Transporte público: ').upper()
 bicicleta = input('Bicicleta: ').upper()
 caminhada = input('Caminhada: ').upper()
-carro = input('Carro: ').upper()
+carro = input('Carro (Combustivel fóssil): ').upper()
 carro_eletrico = input('Carro elétrico: ').upper()
-carona_compartilhada = input('Carona compartilhada: ').upper()
+carona_compartilhada = input('Carona compartilhada (Combustível fóssil): ').upper()
 
 # Verificação da sustentabilidade da água
 if consumo_agua < 150:
