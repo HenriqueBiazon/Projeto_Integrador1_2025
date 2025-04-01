@@ -64,9 +64,12 @@ else:
 print("- ",end="")
 
 # Sustentabilidade de meio de transporte
-if ((bicicleta == 'SIM') or (transporte_publico == 'SIM') or (carro_eletrico == 'SIM') or (caminhada == 'SIM')) and ((carona_compartilhada == 'SIM') or (carro == 'SIM')): #Verifica se tem Alta sustentabilidade E Baxa Sustentabilidade
+if ((bicicleta == 'SIM') or (transporte_publico == 'SIM') or (carro_eletrico == 'SIM') or (caminhada == 'SIM')) and ((carona_compartilhada == 'SIM') or (carro == 'SIM')): 
+#Verifica se tem Alta sustentabilidade E Baxa Sustentabilidade = Moderada Sustentabilidade
     print('Moderada sustentabilidade para meio de transporte.')
 elif (bicicleta == 'SIM') or (transporte_publico == 'SIM') or (caminhada == 'SIM') or (carro_eletrico == 'SIM'):
+#Verifica se tem Alta sustentabilidade
     print('Alta sustentabilidade para meio de transporte.')
 elif (carona_compartilhada == 'SIM') or (carro == 'SIM'):
+#Verifica se tem Baixa sustentabilidade
     print('Baixa sustentabilidade para meio de transporte.')
