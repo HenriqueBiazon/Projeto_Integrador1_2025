@@ -1,5 +1,5 @@
 # Entrada da data
-data = str(input('Qual a data de hoje? '))
+data = input('Qual a data de hoje? ')
 
 # Input dos consumos
 consumo_agua = int(input('Quantos L de água você consumiu hoje?: '))
@@ -41,7 +41,7 @@ else:
     print('Baixa sustentabilidade na geração de resíduos recicláveis.')
 
 # Sustentabilidade de meio de transporte
-if ((bicicleta == 'SIM') or (transporte_publico == 'SIM') or (carro_eletrico == 'SIM') or (carro == 'SIM')) and ((carona_compartilhada == 'SIM') or (caminhada == 'SIM')):
+if ((bicicleta == 'SIM') or (transporte_publico == 'SIM') or (carro_eletrico == 'SIM') or (caminhada == 'SIM')) and ((carona_compartilhada == 'SIM') or (carro == 'SIM')): #Verifica se tem Alta sustentabilidade E Baxa Sustentabilidade
     print('Moderada sustentabilidade para meio de transporte.')
 elif (bicicleta == 'SIM') or (transporte_publico == 'SIM') or (caminhada == 'SIM') or (carro_eletrico == 'SIM'):
     print('Alta sustentabilidade para meio de transporte.')
