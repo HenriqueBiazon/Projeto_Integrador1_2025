@@ -16,13 +16,22 @@ carro = input('Carro (Combustivel fóssil): ').upper()
 carro_eletrico = input('Carro elétrico: ').upper()
 carona_compartilhada = input('Carona compartilhada (Combustível fóssil): ').upper()
 
-# Verificação da sustentabilidade da água
+# Apresentar resultados + Classificação de sustentabilidade
+print()
+print(f"Classificação da sustentabilidade do dia {data}:")
+print()
+
+print("- ",end="")
+
+# Classificação da sustentabilidade da água
 if consumo_agua < 150:
     print('Alta sustentabilidade no consumo de água diário.')
 elif 150 <= consumo_agua <= 200:
     print('Moderada sustentabilidade no consumo de água diário.')
 else:
     print('Baixa sustentabilidade no consumo de água diário.')
+
+print("- ",end="")
 
 # Sustentabilidade no consumo de energia
 if consumo_energia < 5:
@@ -32,6 +41,8 @@ elif 5 <= consumo_energia <= 10:
 else:
     print('Baixa sustentabilidade no consumo de energia.')
 
+print("- ",end="")
+
 # Sustentabilidade na geração de resíduos recicláveis
 if residuos_reciclados > 50:
     print('Alta sustentabilidade na geração de resíduos recicláveis.')
@@ -39,6 +50,8 @@ elif 20 <= residuos_reciclados <= 50:
     print('Moderada sustentabilidade na geração de resíduos recicláveis.')
 else:
     print('Baixa sustentabilidade na geração de resíduos recicláveis.')
+
+print("- ",end="")
 
 # Sustentabilidade de meio de transporte
 if ((bicicleta == 'SIM') or (transporte_publico == 'SIM') or (carro_eletrico == 'SIM') or (caminhada == 'SIM')) and ((carona_compartilhada == 'SIM') or (carro == 'SIM')): #Verifica se tem Alta sustentabilidade E Baxa Sustentabilidade
