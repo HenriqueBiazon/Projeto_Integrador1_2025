@@ -1,3 +1,11 @@
+#Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
+
+#Tela de início
+print("-------------------------------------------------------------")
+print(" Sistema de classificação de sustentabilidade pessoal diário ")
+print("-------------------------------------------------------------")
+print()
+
 # Entrada da data
 data = input('Qual a data de hoje? ')
 
@@ -5,10 +13,12 @@ data = input('Qual a data de hoje? ')
 consumo_agua = int(input('Quantos L de água você consumiu hoje?: '))
 consumo_energia = float(input('Quantos KWh de energia elétrica você consumiu hoje? '))
 geracao_residuos = float(input('Quantos KG de resíduos não recicláveis você gerou hoje? '))
-residuos_reciclados = float(input('Qual sua porcentagem de resíduos reciclados hoje? '))
+residuos_reciclados = float(input('Qual sua porcentagem (%) de resíduos reciclados hoje? '))
+
+print() #Pula uma linha
 
 # Input dos transportes
-print('Qual meio de transporte você usou hoje? (responda com SIM ou NÃO)')
+print('Qual meio de transporte você usou hoje? (Responda com SIM ou NÃO)')
 transporte_publico = input('Transporte público: ').upper()
 bicicleta = input('Bicicleta: ').upper()
 caminhada = input('Caminhada: ').upper()
@@ -21,7 +31,7 @@ print()
 print(f"Classificação da sustentabilidade do dia {data}:")
 print()
 
-print("- ",end="")
+print("- ",end="") #Começa cada linha com um -, e depois escreve a classificação
 
 # Classificação da sustentabilidade da água
 if consumo_agua < 150:
