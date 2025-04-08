@@ -19,12 +19,14 @@ print() #Pula uma linha
 
 # Input dos transportes
 print('Qual meio de transporte você usou hoje? (Responda com SIM ou NÃO)')
-transporte_publico = input('Transporte público: ').upper()
-bicicleta = input('Bicicleta: ').upper()
-caminhada = input('Caminhada: ').upper()
-carro = input('Carro (Combustivel fóssil): ').upper()
-carro_eletrico = input('Carro elétrico: ').upper()
-carona_compartilhada = input('Carona compartilhada (Combustível fóssil): ').upper()
+
+meiosTransporte = ['','','','','','']
+meiosTransporte[0] = input('Transporte público: ').upper()
+meiosTransporte[1] = input('Bicicleta: ').upper()
+meiosTransporte[2] = input('Caminhada: ').upper()
+meiosTransporte[3] = input('Carro (Combustivel fóssil): ').upper()
+meiosTransporte[4] = input('Carro elétrico: ').upper()
+meiosTransporte[5] = input('Carona compartilhada (Combustível fóssil): ').upper()
 
 # Apresentar resultados + Classificação de sustentabilidade
 print()
@@ -64,12 +66,12 @@ else:
 print("- ",end="")
 
 # Sustentabilidade de meio de transporte
-if ((bicicleta == 'SIM') or (transporte_publico == 'SIM') or (carro_eletrico == 'SIM') or (caminhada == 'SIM')) and ((carona_compartilhada == 'SIM') or (carro == 'SIM')): 
+if ((meiosTransporte[1] == 'SIM') or (meiosTransporte[0] == 'SIM') or (meiosTransporte[4] == 'SIM') or (meiosTransporte[2] == 'SIM')) and ((meiosTransporte[5] == 'SIM') or (meiosTransporte[3] == 'SIM')): 
 #Verifica se tem Alta sustentabilidade E Baxa Sustentabilidade = Moderada Sustentabilidade
     print('Moderada sustentabilidade para meio de transporte.')
-elif (bicicleta == 'SIM') or (transporte_publico == 'SIM') or (caminhada == 'SIM') or (carro_eletrico == 'SIM'):
+elif (meiosTransporte[1] == 'SIM') or (meiosTransporte[0] == 'SIM') or (meiosTransporte[4] == 'SIM') or (meiosTransporte[2] == 'SIM'):
 #Verifica se tem Alta sustentabilidade
     print('Alta sustentabilidade para meio de transporte.')
-elif (carona_compartilhada == 'SIM') or (carro == 'SIM'):
+elif (meiosTransporte[5] == 'SIM') or (meiosTransporte[3] == 'SIM'):
 #Verifica se tem Baixa sustentabilidade
     print('Baixa sustentabilidade para meio de transporte.')
