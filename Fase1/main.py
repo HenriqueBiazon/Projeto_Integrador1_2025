@@ -1,3 +1,15 @@
+#Fase 2 - Implementação do banco de dados
+
+import mysql.connector
+
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="Jppm2006",
+    database="projeto_integrador_fase2"
+)
+print(mydb)
+
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
 #Tela de início
