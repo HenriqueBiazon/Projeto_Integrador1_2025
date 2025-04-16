@@ -3,10 +3,10 @@
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Jppm2006",
-    database="projeto_integrador_fase2"
+    host="BD-ACD",
+    user="BD180225117",
+    password="Tdtgj9",
+    database="BD180225117"
 )
 print(mydb)
 
@@ -17,6 +17,15 @@ print("-------------------------------------------------------------")
 print(" Sistema de classificação de sustentabilidade pessoal diário ")
 print("-------------------------------------------------------------")
 print()
+print("ENTRAR NA CONTA:")
+username = input("USERNAME: ")
+senha = input("SENHA: ")
+
+mycursor = mydb.cursor()
+
+sql = "SELECT nome FROM usuarios_PI"
+mycursor.execute(sql)
+mydb.commit()
 
 # Entrada da data
 data = input('Qual a data de hoje? ')
