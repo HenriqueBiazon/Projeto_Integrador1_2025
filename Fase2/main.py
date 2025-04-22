@@ -1,23 +1,16 @@
 #Fase 2 - Implementação do banco de dados
 
-import mysql.connector
-
-mydb = mysql.connector.connect(
-    host="BD-ACD",
-    user="BD180225117",
-    password="Tdtgj9",
-    database="BD180225117"
-)
-print(mydb)
+from conectBanco import DBconnect
+from pTelaMenu import telaMenu
 
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
 #Tela de início
-print("-------------------------------------------------------------")
-print(" Sistema de classificação de sustentabilidade pessoal diário ")
-print("-------------------------------------------------------------")
-print()
 
+telaMenu()
+
+#TESTE PARA SELECIONAR NO MYSQL
+mydb = DBconnect()
 mycursor = mydb.cursor()
 
 sql = "SELECT * FROM classificacao_sustentabilidade WHERE id_classificacao=2"
