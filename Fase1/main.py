@@ -17,18 +17,19 @@ print("-------------------------------------------------------------")
 print(" Sistema de classificação de sustentabilidade pessoal diário ")
 print("-------------------------------------------------------------")
 print()
-print("ENTRAR NA CONTA:")
-username = input("USERNAME: ")
-senha = input("SENHA: ")
 
 mycursor = mydb.cursor()
 
-sql = "SELECT nome FROM usuarios_PI"
+sql = "SELECT * FROM classificacao_sustentabilidade WHERE id_classificacao=2"
 mycursor.execute(sql)
-mydb.commit()
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
 
 # Entrada da data
 data = input('Qual a data de hoje? ')
+
 
 # Input dos consumos
 consumo_agua = int(input('Quantos L de água você consumiu hoje?: '))
