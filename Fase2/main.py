@@ -1,3 +1,15 @@
+#Fase 2 - Implementação do banco de dados
+
+import mysql.connector
+
+mydb = mysql.connector.connect(
+    host="BD-ACD",
+    user="BD180225117",
+    password="Tdtgj9",
+    database="BD180225117"
+)
+print(mydb)
+
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
 #Tela de início
@@ -5,6 +17,15 @@ print("-------------------------------------------------------------")
 print(" Sistema de classificação de sustentabilidade pessoal diário ")
 print("-------------------------------------------------------------")
 print()
+
+mycursor = mydb.cursor()
+
+sql = "SELECT * FROM classificacao_sustentabilidade WHERE id_classificacao=2"
+mycursor.execute(sql)
+myresult = mycursor.fetchall()
+
+for x in myresult:
+    print(x)
 
 # Entrada da data
 data = input('Qual a data de hoje? ')
