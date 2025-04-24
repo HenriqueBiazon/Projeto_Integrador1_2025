@@ -10,18 +10,8 @@ from pTelaMenu import telaMenu
 telaMenu()
 
 #TESTE PARA SELECIONAR NO MYSQL
-def DBselect():
-    mydb = DBconnect()
-    cursor = mydb.cursor()
 
-    sql = "SELECT * FROM dados_sustentabilidade"
-    cursor.execute(sql)
-    myresult = cursor.fetchall()
 
-    for x in myresult:
-        print(x)
-
-DBselect()
 
 # Entrada da data
 data = input('Qual a data de hoje? ')
@@ -31,7 +21,7 @@ data = input('Qual a data de hoje? ')
 consumo_agua = int(input('Quantos L de água você consumiu hoje?: '))
 consumo_energia = float(input('Quantos KWh de energia elétrica você consumiu hoje? '))
 geracao_residuos = float(input('Quantos KG de resíduos não recicláveis você gerou hoje? '))
-residuos_reciclados = float(input('Qual sua porcentagem (%) de resíduos reciclados hoje? '))
+porcentagem_reciclagem = float(input('Qual sua porcentagem (%) de resíduos reciclados hoje? '))
 
 print() #Pula uma linha
 
@@ -74,9 +64,9 @@ else:
 print("- ",end="")
 
 # Sustentabilidade na geração de resíduos recicláveis
-if residuos_reciclados > 50:
+if porcentagem_reciclagem > 50:
     print('Alta sustentabilidade na geração de resíduos recicláveis.')
-elif 20 <= residuos_reciclados <= 50:
+elif 20 <= porcentagem_reciclagem <= 50:
     print('Moderada sustentabilidade na geração de resíduos recicláveis.')
 else:
     print('Baixa sustentabilidade na geração de resíduos recicláveis.')
@@ -93,3 +83,32 @@ elif (meiosTransporte[1] == 'SIM') or (meiosTransporte[0] == 'SIM') or (meiosTra
 elif (meiosTransporte[5] == 'SIM') or (meiosTransporte[3] == 'SIM'):
 #Verifica se tem Baixa sustentabilidade
     print('Baixa sustentabilidade para meio de transporte.')
+
+string_meiosTransporte = ','.join(meiosTransporte)
+print(string_meiosTransporte)
+
+def DBselect():
+    mydb = DBconnect()
+    cursor = mydb.cursor()
+
+    sql = "SELECT * FROM dados_sustentabilidade"
+    cursor.execute(sql)
+    myresult = cursor.fetchall()
+
+    for x in myresult:
+        print(x)
+
+
+def DBinsert():
+    mydb = DBconnect()
+    cursor = mydb.cursor()
+
+    sql = "INSERT INTO dados_sustentabilidade (consumo_agua, consumo_energia, porcentagem_reciclagem, meio_transporte) VALUES (%s,%s,%s,%s)"
+    values = (consumo_agua,consumo_energia,porcentagem_reciclagem,string_meiosTransporte)
+    cursor.execute(sql,values)
+    mydb.commit()
+
+    print(cursor.rowcount, "INSERTED")
+
+DBinsert()
+DBselect()
