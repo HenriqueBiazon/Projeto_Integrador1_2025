@@ -10,15 +10,18 @@ from pTelaMenu import telaMenu
 telaMenu()
 
 #TESTE PARA SELECIONAR NO MYSQL
-mydb = DBconnect()
-mycursor = mydb.cursor()
+def DBselect():
+    mydb = DBconnect()
+    cursor = mydb.cursor()
 
-sql = "SELECT * FROM classificacao_sustentabilidade WHERE id_classificacao=2"
-mycursor.execute(sql)
-myresult = mycursor.fetchall()
+    sql = "SELECT * FROM dados_sustentabilidade"
+    cursor.execute(sql)
+    myresult = cursor.fetchall()
 
-for x in myresult:
-    print(x)
+    for x in myresult:
+        print(x)
+
+DBselect()
 
 # Entrada da data
 data = input('Qual a data de hoje? ')
