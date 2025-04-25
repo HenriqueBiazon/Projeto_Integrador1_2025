@@ -2,12 +2,12 @@ def telaClassificar():
 
     from conectBanco import DBselect
     print("""
-    -------------------------------------------------------------------------------------------
-    |                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
-    -------------------------------------------------------------------------------------------
-
-                                         CLASSIFICAR
-    -------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+|                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
+-------------------------------------------------------------------------------------------
+          
+                                        CLASSIFICAR
+-------------------------------------------------------------------------------------------
     """)
 
     myresult = DBselect()
@@ -65,15 +65,16 @@ def telaClassificar():
     
         if ((meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM')) and ((meios_transporte[5] == 'SIM') or (meios_transporte[3] =='SIM')): 
             print('Moderada sustentabilidade.')
-        elif (meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM'):
-            print('Alta sustentabilidade.')
-            media_trasporte += 1
         elif (meios_transporte[5] == 'SIM') or (meios_transporte[3] == 'SIM'):
             print('Baixa sustentabilidade.')
             media_trasporte -=1
+        #elif (meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM'):
+        else:
+            print('Alta sustentabilidade.')
+            media_trasporte += 1
+        
 
     print()
-
     print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
     print()
     print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ",end="")
