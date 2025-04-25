@@ -83,14 +83,13 @@ def telaInserir():
     if ((meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM')) and ((meios_transporte[5] == 'SIM') or (meios_transporte[3] == 'SIM')): 
     #Verifica se tem Alta sustentabilidade E Baxa Sustentabilidade = Moderada Sustentabilidade
         print('Moderada sustentabilidade.')
-    elif (meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM'):
-    #Verifica se tem Alta sustentabilidade
-        print('Alta sustentabilidade.')
     elif (meios_transporte[5] == 'SIM') or (meios_transporte[3] == 'SIM'):
     #Verifica se tem Baixa sustentabilidade
-        print('Baixa sustentabilidade.') 
-
-   
+        print('Baixa sustentabilidade.')
+    #elif (meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM'):
+    #Verifica se tem Alta sustentabilidade
+    else:
+        print('Alta sustentabilidade.')   
 
     from conectBanco import DBinsert_dados
 
