@@ -6,8 +6,10 @@ CREATE TABLE dados_sustentabilidade (
     consumo_agua INT, 
     consumo_energia INT, 
     porcentagem_reciclagem INT, 
-    meio_transporte VARCHAR(50)
+    meios_transporte VARCHAR(50)
 );
 SELECT * FROM dados_sustentabilidade;
 
 --INSERT INTO dados_sustentabilidade (data,consumo_agua,consumo_energia,porcentagem_reciclagem,meio_transporte) VALUES ()
+
+ALTER TABLE dados_sustentabilidade RENAME COLUMN meio_transporte TO meios_transporte;

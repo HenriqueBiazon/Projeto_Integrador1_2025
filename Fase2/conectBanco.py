@@ -16,7 +16,7 @@ def DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, 
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = 'INSERT INTO dados_sustentabilidade (data, consumo_agua, consumo_energia, porcentagem_reciclagem, meio_transporte) VALUES (%s,%s,%s,%s,%s)'
+    sql = 'INSERT INTO dados_sustentabilidade (data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte) VALUES (%s,%s,%s,%s,%s)'
     values = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
 
     cursor.execute(sql,values)
@@ -51,9 +51,9 @@ def DBalter_dia(data,paraAlterar,alteracao):
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = f'UPDATE dados_sustentabilidade SET "{paraAlterar}" = {alteracao} WHERE data = {data}'
-
-    cursor.execute(sql)
+    sql = f"UPDATE dados_sustentabilidade SET {paraAlterar} = %s WHERE data = %s"
+    values = (alteracao,data)
+    cursor.execute(sql,values)
     mydb.commit()
     
 def DBdelete_dia(data):

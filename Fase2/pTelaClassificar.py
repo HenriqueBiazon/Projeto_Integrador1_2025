@@ -42,6 +42,7 @@ def classificacaoDia(data,consumo_agua,consumo_energia,porcentagem_reciclagem,me
             
                 if ((meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM')) and ((meios_transporte[5] == 'SIM') or (meios_transporte[3] =='SIM')): 
                     print('Moderada sustentabilidade.')
+
                 elif (meios_transporte[5] == 'SIM') or (meios_transporte[3] == 'SIM'):
                     print('Baixa sustentabilidade.')
                     medias[3] -=1
@@ -49,6 +50,7 @@ def classificacaoDia(data,consumo_agua,consumo_energia,porcentagem_reciclagem,me
                 else:
                     print('Alta sustentabilidade.')
                     medias[3] += 1
+
                 return medias
 
 def telaClassificar():
@@ -64,7 +66,7 @@ def telaClassificar():
 -------------------------------------------------------------------------------------------""")
 
     myresult = DBselect()
-    
+    medias = [0,0,0,0]
     for x in myresult:
         data = x[1]
         consumo_agua = x[2]
@@ -73,7 +75,9 @@ def telaClassificar():
         string_meio_transporte = x[5]
         meios_transporte = string_meio_transporte.split(",")
 
-        medias += classificacaoDia(data,consumo_agua,consumo_energia,porcentagem_reciclagem,meios_transporte)
+        mediaDia = classificacaoDia(data,consumo_agua,consumo_energia,porcentagem_reciclagem,meios_transporte)
+        print(mediaDia)
+        medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
 
     print()
     print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
