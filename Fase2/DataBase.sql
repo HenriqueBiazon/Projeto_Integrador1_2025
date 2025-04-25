@@ -10,6 +10,5 @@ CREATE TABLE dados_sustentabilidade (
 );
 SELECT * FROM dados_sustentabilidade;
 
---INSERT INTO dados_sustentabilidade (data,consumo_agua,consumo_energia,porcentagem_reciclagem,meio_transporte) VALUES ()
-
-ALTER TABLE dados_sustentabilidade RENAME COLUMN meio_transporte TO meios_transporte;
+INSERT INTO dados_sustentabilidade (data,consumo_agua,consumo_energia,porcentagem_reciclagem,meios_transporte) VALUES ("DD/MM/AAAA",0,0,0,"0,0,0,0");
+DROP TABLE dados_sustentabilidade;
