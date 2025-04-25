@@ -1,4 +1,4 @@
-def telaClassficar():
+def telaClassificar():
 
     from conectBanco import DBselect
     print("""
@@ -113,4 +113,3 @@ def telaClassficar():
         print('Moderada sustentabilidade.')
 
     input("\n                                    <APERTE ENTER>")
-telaClassficar()
