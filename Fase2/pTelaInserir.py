@@ -97,4 +97,5 @@ def telaInserir():
     #INSERIR NO BANCO DE DADOS
 
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
-    input("<aperte enter>")
+    
+    input("\n <APERTE ENTER>")
