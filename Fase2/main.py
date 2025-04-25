@@ -3,6 +3,7 @@
 from pTelaMenu import telaMenu
 from pTelaInserir import telaInserir
 from pApagarTerminal import apagarTerminal
+from pTelaClassificar import telaClassficar
 
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
@@ -12,19 +13,20 @@ while sair == False:
 
     opcaoMenu = telaMenu() #Printa o menu e pega a opção escolhida
 
+    apagarTerminal()    
     
-
     if opcaoMenu == 1:
         telaInserir() 
+        apagarTerminal()
     elif opcaoMenu == 2:
         print("Alterar")
     elif opcaoMenu == 3:
         print("Excluir")
     elif opcaoMenu == 4:
-        print("CLassificar")
+        telaClassficar()
+        apagarTerminal()
     elif opcaoMenu == 5:
         print("Saindo")
         sair = True
+        apagarTerminal()
         break
-    
-    apagarTerminal()

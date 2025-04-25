@@ -90,8 +90,11 @@ def telaInserir():
     #Verifica se tem Baixa sustentabilidade
         print('Baixa sustentabilidade.') 
 
+   
+
     from conectBanco import DBinsert_dados
 
     #INSERIR NO BANCO DE DADOS
 
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
+    input("<aperte enter>")

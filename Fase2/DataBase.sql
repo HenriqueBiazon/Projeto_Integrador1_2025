@@ -9,3 +9,5 @@ CREATE TABLE dados_sustentabilidade (
     meio_transporte VARCHAR(50)
 );
 SELECT * FROM dados_sustentabilidade;
+
+--INSERT INTO dados_sustentabilidade (data,consumo_agua,consumo_energia,porcentagem_reciclagem,meio_transporte) VALUES ()

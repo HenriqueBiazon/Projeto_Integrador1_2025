@@ -30,13 +30,7 @@ def DBselect():
     cursor.execute(sql)
     myresult = cursor.fetchall()
 
-    data = myresult[0]
-    consumo_agua = myresult[1]
-    consumo_energia = myresult[2]
-    porcentagem_reciclagem = myresult[3]
-    string_meio_transporte = myresult[4]
-    meios_transporte = string_meio_transporte.split(",")
     # X = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meio_transporte)
 
-    return data,consumo_agua,consumo_energia,porcentagem_reciclagem,meios_transporte
+    return myresult
 
