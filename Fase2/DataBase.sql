@@ -10,5 +10,5 @@ CREATE TABLE dados_sustentabilidade (
 );
 SELECT * FROM dados_sustentabilidade;
 
-INSERT INTO dados_sustentabilidade (data,consumo_agua,consumo_energia,porcentagem_reciclagem,meios_transporte) VALUES ("DD/MM/AAAA",0,0,0,"0,0,0,0");
+INSERT INTO dados_sustentabilidade (data,consumo_agua,consumo_energia,porcentagem_reciclagem,meios_transporte) VALUES ("DD/MM/AAAA",0,0,0,"0,0,0,0,0,0");
 DROP TABLE dados_sustentabilidade;
