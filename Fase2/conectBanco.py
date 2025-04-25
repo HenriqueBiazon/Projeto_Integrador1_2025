@@ -35,24 +35,25 @@ def DBselect(): #SELECIONA A TABELA INTEIRA
     return myresult
 DBconnect()
 
-def DBselect_dados(data): #SELECIONA A LINHA EM UMA DATA ESPECÍFICA
+def DBselect_dia(data): #SELECIONA A LINHA EM UMA DATA ESPECÍFICA
     mydb = DBconnect()
     cursor = mydb.cursor()
 
     sql = f'SELECT * FROM dados_sustentabilidade WHERE data = "{data}"'
     cursor.execute(sql)
+
     myresult = cursor.fetchall()
+    myresult = myresult.pop(0)
 
-    return myresult
+    return list(myresult)
 
-def DBalter_dia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte):
+def DBalter_dia(data,paraAlterar,alteracao):
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = 'ALTER TABLE dados_sustentabilidade (data, consumo_agua, consumo_energia, porcentagem_reciclagem, meio_transporte) VALUES (%s,%s,%s,%s,%s)'
-    values = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
+    sql = f'UPDATE dados_sustentabilidade SET "{paraAlterar}" = {alteracao} WHERE data = {data}'
 
-    cursor.execute(sql,values)
+    cursor.execute(sql)
     mydb.commit()
     
 def DBdelete_dia(data):

@@ -4,6 +4,8 @@ from pTelaMenu import telaMenu
 from pTelaInserir import telaInserir
 from pApagarTerminal import apagarTerminal
 from pTelaClassificar import telaClassificar
+from pTelaAlterar import telaAlterar
+from pTelaExcluir import telaExcluir
 
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
@@ -21,11 +23,11 @@ while sair == False:
 
     elif opcaoMenu == 2:
 
-        print("Alterar")
+        telaAlterar()
 
     elif opcaoMenu == 3:
 
-        print("Excluir")
+        telaExcluir()
 
     elif opcaoMenu == 4:
 
