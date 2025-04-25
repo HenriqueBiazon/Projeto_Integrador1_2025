@@ -1,14 +1,14 @@
 def DBconnect():
-    import mysql.connector
+    import mysql.connector # type: ignore
     mydb = mysql.connector.connect(
-        host="127.0.0.1",
-        user="root",
-        password="Jppm2006",
-        database="projeto_integrador_fase2"
-        #host="BD-ACD",
-        #user="BD180225117",
-        #password="Tdtgj9",
-        #database="BD180225117"
+        host="BD-ACD",
+        user="BD180225117",
+        password="Tdtgj9",
+        database="BD180225117"
+        #host="127.0.0.1",
+        #user="root",
+        #password="Jppm2006",
+        #database="projeto_integrador_fase2"
     )
     return mydb
 
@@ -33,4 +33,4 @@ def DBselect():
     # X = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meio_transporte)
 
     return myresult
-
+DBconnect()

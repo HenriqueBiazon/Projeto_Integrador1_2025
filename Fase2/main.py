@@ -4,9 +4,9 @@ from pTelaMenu import telaMenu
 from pTelaInserir import telaInserir
 from pApagarTerminal import apagarTerminal
 from pTelaClassificar import telaClassficar
-
+apagarTerminal()
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
-
+input(">")
 #Tela de início
 sair = False
 while sair == False:
