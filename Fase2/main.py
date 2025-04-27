@@ -1,11 +1,6 @@
 #Fase 2 - Implementação do banco de dados
 
-from pTelaMenu import telaMenu
-from pTelaInserir import telaInserir
-from pApagarTerminal import apagarTerminal
-from pTelaClassificar import telaClassificar
-from pTelaAlterar import telaAlterar
-from pTelaExcluir import telaExcluir
+from Telas import telaAlterar, telaClassificar, telaExcluir, telaInserir, telaMenu, apagarTerminal
 
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
@@ -35,10 +30,8 @@ while sair == False:
 
     elif opcaoMenu == 5:
 
-        print("Saindo")
+        print("OBRIGADO POR USAR O SISTEMA DE SUSTENTABILIDADE!")
+        input("\n                                    <APERTE ENTER>")
         sair = True
-        apagarTerminal()
-
-        break
 
     apagarTerminal()

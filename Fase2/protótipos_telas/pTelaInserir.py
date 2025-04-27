@@ -16,18 +16,25 @@ def telaInserir():
 
     print("INSIRA A DATA DE HOJE (DD/MM/AAAA):")
     data = str(input("> "))
-    print()
 
-    dataValida = False
-    while dataValida == False:
+
+    dataInvalida = True
+    while dataInvalida == True:
         for x in DBselect():
-            if x[1] != data:
-                dataValida = True
+            if x[1] == data:
+                dataInvalida = True
                 break
-        if dataValida == False:
-            print("ERRO! Digite uma data ainda não inserida:")
+            else:
+                dataInvalida = False
+        if dataInvalida == True:
+            print()
+            print("ERRO! Digite uma data ainda não inserida:\n(Digite 0 para voltar para o menu)")
             data = input(">")
-    
+            if data == 0:
+                return
+            dataInvalida = True
+
+    print()
     print("INSIRA SEUS DADOS DE CONSUMO DE ÁGUA (L):")
     consumo_agua = int(input("> "))
     print()
@@ -64,4 +71,4 @@ def telaInserir():
 
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
     
-    input("\n <APERTE ENTER>")
+    input("\n                                    <APERTE ENTER>")

@@ -1,7 +1,6 @@
 def telaAlterar():
 
     from conectBanco import DBselect,DBselect_dia,DBalter_dia
-    from pTelaInserir import telaInserir
     from pTelaClassificar import classificacaoDia
 
     print("""
@@ -23,10 +22,10 @@ def telaAlterar():
                 dataValida = True
                 break
         if dataValida == False:
-            print("ERRO! Digite uma data já inserida:\n(Digite 0 para inserir um novo dia)")
+            print("ERRO! Digite uma data já inserida:\n(Digite 0 para voltar para o menu)")
             data = input(">")
             if data == 0:
-                telaInserir()
+                return
 
     myresult = DBselect_dia(data)
     myresult[5] = myresult[5].split(",")
@@ -123,5 +122,5 @@ def telaAlterar():
 
     classificacaoDia(myresult[1],myresult[2],myresult[3],myresult[4],myresult[5]) #PRINTA A NOVA CLASSIFICAÇÃO
 
-    input("\n<APERTE ENTER>")
+    input("\n                                    <APERTE ENTER>")
 
