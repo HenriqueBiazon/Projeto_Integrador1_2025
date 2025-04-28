@@ -98,11 +98,8 @@ def telaInserir():
     data = str(input("> "))
 
     dataInvalida = True
-    while dataInvalida == True:
-        tabela,linhas = DBselect()
-        if linhas == 0:
-            dataInvalida = False
-        for x in tabela:
+    while dataInvalida:
+        for x in DBselect():
             if x[1] == data:
                 dataInvalida = True
                 break
@@ -164,6 +161,7 @@ def telaAlterar():
     data = input(">")
 
     dataValida = False
+<<<<<<< HEAD
     while dataValida == False:
         tabela,linhas = DBselect()
         if linhas == 0:
@@ -175,6 +173,13 @@ def telaAlterar():
                 if x[1] == data:
                     dataValida = True
                     break
+=======
+    while not dataValida:
+        for x in DBselect():
+            if x[1] == data:
+                dataValida = True
+                break
+>>>>>>> parent of 79d5da9 (ARRUMEI E DEI OS TOQUES FINAIS)
         if not dataValida:
             print("ERRO! Digite uma data válida:\n")
             print("DATAS JÁ INSERIDAS:")
@@ -295,6 +300,7 @@ def telaExcluir():
     data = input(">")
 
     dataValida = False
+<<<<<<< HEAD
     while dataValida == False:
         tabela,linhas = DBselect()
         if linhas == 0:
@@ -306,6 +312,13 @@ def telaExcluir():
                 if x[1] == data:
                     dataValida = True
                     break
+=======
+    while not dataValida:
+        for x in DBselect():
+            if x[1] == data:
+                dataValida = True
+                break
+>>>>>>> parent of 79d5da9 (ARRUMEI E DEI OS TOQUES FINAIS)
         if not dataValida:
             print("ERRO! Digite uma data válida:\n")
             print("DATAS JÁ INSERIDAS:")
@@ -374,12 +387,15 @@ def telaClassificar():
                                         CLASSIFICAR
 -------------------------------------------------------------------------------------------""")
 
-    myresult,linhas = DBselect()
+    myresult = DBselect()
     medias = [0, 0, 0, 0]
+<<<<<<< HEAD
     if linhas == 0:
         print("Nenhum dia para classificar")
         input("                                    <APERTE ENTER>")
         return
+=======
+>>>>>>> parent of 79d5da9 (ARRUMEI E DEI OS TOQUES FINAIS)
     for x in myresult:
         data = x[1]
         consumo_agua = x[2]
