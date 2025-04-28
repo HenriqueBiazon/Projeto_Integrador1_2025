@@ -371,7 +371,7 @@ def telaClassificar():
                                         CLASSIFICAR
 -------------------------------------------------------------------------------------------""")
 
-    myresult = DBselect()
+    myresult,linhas = DBselect()
     medias = [0, 0, 0, 0]
     if linhas == 0:
         print("Nenhum dia para classificar")
