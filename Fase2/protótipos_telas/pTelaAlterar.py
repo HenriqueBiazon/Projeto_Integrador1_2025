@@ -16,15 +16,23 @@ def telaAlterar():
 
     dataValida = False
     while dataValida == False:
-        for x in DBselect():
-            if x[1] == data:
-                
-                dataValida = True
-                break
-        if dataValida == False:
+        tabela,linhas = DBselect()
+        if linhas == 0:
+            print("ERRO! Insira alguma data no sistema para alterar")
+            input("<APERTE ENTER>")
+            return
+        else:
+            for x in tabela:
+                if x[1] == data:
+                    dataValida = True
+                    break
+        if not dataValida:
+            print("DATAS JÁ INSERIDAS:")
+            for x in tabela:
+                print("DIA: ",x[1])
             print("ERRO! Digite uma data já inserida:\n(Digite 0 para voltar para o menu)")
             data = input(">")
-            if data == 0:
+            if data == "0":
                 return
 
     myresult = DBselect_dia(data)

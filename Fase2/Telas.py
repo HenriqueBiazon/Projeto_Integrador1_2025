@@ -1,4 +1,5 @@
 ## APAGAR TERMINAL
+
 def apagarTerminal():
     import os
     os.system("cls")
@@ -25,12 +26,14 @@ def telaMenu():
         opcaoMenu = int(input(">"))
 
     return opcaoMenu
+
 ## CLASSIFICANDO
+
 def classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte):
     medias = [0, 0, 0, 0]
 
     print()
-    print(f"-------------------CLASSIFICAÇÃO DA SUSTENTABILIDADE DO DIA {data}:--------------------")
+    print(f"                    CLASSIFICAÇÃO DA SUSTENTABILIDADE DO DIA {data}:                     ")
     print()
     print(f"CLASSIFICAÇÃO DE SUSTENTABILIDADE DE ÁGUA: ", end="")
 
@@ -78,7 +81,9 @@ def classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem
         medias[3] += 1
 
     return medias
+
 ## INSERIR DIA
+
 def telaInserir():
     from conectBanco import DBinsert_dados, DBselect
 
@@ -141,7 +146,7 @@ def telaInserir():
 
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
 
-    input("\n                                    <APERTE ENTER>")
+    input("                                    <APERTE ENTER>")
 
 ## ALTERAR DIA
 
@@ -164,7 +169,7 @@ def telaAlterar():
         tabela,linhas = DBselect()
         if linhas == 0:
             print("ERRO! Insira alguma data no sistema para alterar")
-            input("<APERTE ENTER>")
+            input("                                    <APERTE ENTER>")
             return
         else:
             for x in tabela:
@@ -172,7 +177,11 @@ def telaAlterar():
                     dataValida = True
                     break
         if not dataValida:
-            print("ERRO! Digite uma data já inserida:\n(Digite 0 para voltar para o menu)")
+            print("ERRO! Digite uma data válida:\n")
+            print("DATAS JÁ INSERIDAS:")
+            for x in tabela:
+                print("-",x[1])
+            print("(OU digite 0 para voltar para o menu)")
             data = input(">")
             if data == "0":
                 return
@@ -197,7 +206,7 @@ def telaAlterar():
     print(f"CARRO ELÉTRICO: {myresult[5][4]}")
     print(f"CARONA COMPARTILHADA (combustível fóssil): {myresult[5][5]}")
     print()
-    input("<APERTE ENTER>")
+    input("                                    <APERTE ENTER>")
     print()
     print("-------------------------------------------------------------------------------------------")
     print()
@@ -291,7 +300,7 @@ def telaExcluir():
         tabela,linhas = DBselect()
         if linhas == 0:
             print("ERRO! Insira alguma data no sistema para alterar")
-            input("<APERTE ENTER>")
+            input("                                    <APERTE ENTER>")
             return
         else:
             for x in tabela:
@@ -299,7 +308,11 @@ def telaExcluir():
                     dataValida = True
                     break
         if not dataValida:
-            print("ERRO! Digite uma data já inserida:\n(Digite 0 para voltar para o menu)")
+            print("ERRO! Digite uma data válida:\n")
+            print("DATAS JÁ INSERIDAS:")
+            for x in tabela:
+                print("-",x[1])
+            print("(OU digite 0 para voltar para o menu)")
             data = input(">")
             if data == "0":
                 return
@@ -325,7 +338,7 @@ def telaExcluir():
     print(f"CARRO ELÉTRICO: {myresult[5][4]}")
     print(f"CARONA COMPARTILHADA (combustível fóssil): {myresult[5][5]}")
     print()
-    input("<APERTE ENTER>")
+    input("                                    <APERTE ENTER>")
     print()
     print(f"""
 -------------------------------------------------------------------------------------------
@@ -366,7 +379,7 @@ def telaClassificar():
     medias = [0, 0, 0, 0]
     if linhas == 0:
         print("Nenhum dia para classificar")
-        input("<APERTE ENTER>")
+        input("                                    <APERTE ENTER>")
         return
     for x in myresult:
         data = x[1]

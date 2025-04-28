@@ -30,7 +30,7 @@ while sair == False:
 
     elif opcaoMenu == 5:
 
-        print("                    OBRIGADO POR USAR O SISTEMA DE SUSTENTABILIDADE!")
+        print("\n                    OBRIGADO POR USAR O SISTEMA DE SUSTENTABILIDADE!")
         input("\n                                    <APERTE ENTER>")
         sair = True
 
