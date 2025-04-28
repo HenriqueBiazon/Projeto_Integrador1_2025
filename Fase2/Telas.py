@@ -94,8 +94,11 @@ def telaInserir():
     data = str(input("> "))
 
     dataInvalida = True
-    while dataInvalida:
-        for x in DBselect():
+    while dataInvalida == True:
+        tabela,linhas = DBselect()
+        if linhas == 0:
+            dataInvalida = False
+        for x in tabela:
             if x[1] == data:
                 dataInvalida = True
                 break
@@ -157,11 +160,17 @@ def telaAlterar():
     data = input(">")
 
     dataValida = False
-    while not dataValida:
-        for x in DBselect():
-            if x[1] == data:
-                dataValida = True
-                break
+    while dataValida == False:
+        tabela,linhas = DBselect()
+        if linhas == 0:
+            print("ERRO! Insira alguma data no sistema para alterar")
+            input("<APERTE ENTER>")
+            return
+        else:
+            for x in tabela:
+                if x[1] == data:
+                    dataValida = True
+                    break
         if not dataValida:
             print("ERRO! Digite uma data já inserida:\n(Digite 0 para voltar para o menu)")
             data = input(">")
@@ -278,11 +287,17 @@ def telaExcluir():
     data = input(">")
 
     dataValida = False
-    while not dataValida:
-        for x in DBselect():
-            if x[1] == data:
-                dataValida = True
-                break
+    while dataValida == False:
+        tabela,linhas = DBselect()
+        if linhas == 0:
+            print("ERRO! Insira alguma data no sistema para alterar")
+            input("<APERTE ENTER>")
+            return
+        else:
+            for x in tabela:
+                if x[1] == data:
+                    dataValida = True
+                    break
         if not dataValida:
             print("ERRO! Digite uma data já inserida:\n(Digite 0 para voltar para o menu)")
             data = input(">")
@@ -347,8 +362,12 @@ def telaClassificar():
                                         CLASSIFICAR
 -------------------------------------------------------------------------------------------""")
 
-    myresult = DBselect()
+    myresult,linhas = DBselect()
     medias = [0, 0, 0, 0]
+    if linhas == 0:
+        print("Nenhum dia para classificar")
+        input("<APERTE ENTER>")
+        return
     for x in myresult:
         data = x[1]
         consumo_agua = x[2]

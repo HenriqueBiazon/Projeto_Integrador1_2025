@@ -1,4 +1,4 @@
--- Active: 1744742548804@@127.0.0.1@3306@projeto_integrador_fase2
+-- Active: 1745839715345@@BD-ACD@3306@BD180225117
 SHOW DATABASES;
 CREATE TABLE dados_sustentabilidade (
     Id_dado INT PRIMARY KEY AUTO_INCREMENT, 
