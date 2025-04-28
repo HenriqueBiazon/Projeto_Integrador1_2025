@@ -1,5 +1,4 @@
 ## APAGAR TERMINAL
-
 def apagarTerminal():
     import os
     os.system("cls")
