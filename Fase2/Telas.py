@@ -379,59 +379,76 @@ def telaClassificar():
 -------------------------------------------------------------------------------------------
           
                                         CLASSIFICAR
--------------------------------------------------------------------------------------------""")
+-------------------------------------------------------------------------------------------
+|    1 - DIA ESPECÍFICO      |      2 - LISTAR TODOS       |   3 - MÉDIA DE CLASSIFICÃO   |
+-------------------------------------------------------------------------------------------
+""")
 
     myresult,linhas = DBselect()
     medias = [0, 0, 0, 0]
     if linhas == 0:
         print("Nenhum dia para classificar")
         return
-    for x in myresult:
-        data = x[1]
-        consumo_agua = x[2]
-        consumo_energia = x[3]
-        porcentagem_reciclagem = x[4]
-        string_meio_transporte = x[5]
-        meios_transporte = string_meio_transporte.split(",")
-
-        mediaDia = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
-        medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
-
+    
+    opcaoClassificar = int(input(">"))
+    while opcaoClassificar < 1 or opcaoClassificar > 3:
+        print()
+        print("ERRO! Escolha uma opção válida:")
+        opcaoClassificar = int(input(">"))
     print()
-    print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
-    print()
-    print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ", end="")
 
-    if medias[0] == len(myresult):
-        print('Alta sustentabilidade')
-    elif medias[0] == -len(myresult):
-        print('Baixa sustentabilidade.')
+    if opcaoClassificar == 1:
+        print(f"DIGITE O DIA PARA CLASSIFICAR\n")
+        data = input()
+    elif opcaoClassificar == 2:
+        for x in myresult:
+            data = x[1]
+            consumo_agua = x[2]
+            consumo_energia = x[3]
+            porcentagem_reciclagem = x[4]
+            string_meio_transporte = x[5]
+            meios_transporte = string_meio_transporte.split(",")
+
+            mediaDia = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
+            medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
     else:
-        print('Moderada sustentabilidade.')
+        print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
+        print()
+        print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ", end="")
 
-    print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ENERGIA: ", end="")
+        if medias[0] == len(myresult):
+            print('Alta sustentabilidade')
+        elif medias[0] == -len(myresult):
+            print('Baixa sustentabilidade.')
+        else:
+            print('Moderada sustentabilidade.')
 
-    if medias[1] == len(myresult):
-        print('Alta sustentabilidade')
-    elif medias[1] == -len(myresult):
-        print('Baixa sustentabilidade.')
-    else:
-        print('Moderada sustentabilidade.')
+        print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ENERGIA: ", end="")
 
-    print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE RECICLAGEM: ", end="")
+        if medias[1] == len(myresult):
+            print('Alta sustentabilidade')
+        elif medias[1] == -len(myresult):
+            print('Baixa sustentabilidade.')
+        else:
+            print('Moderada sustentabilidade.')
 
-    if medias[2] == len(myresult):
-        print('Alta sustentabilidade')
-    elif medias[2] == -len(myresult):
-        print('Baixa sustentabilidade.')
-    else:
-        print('Moderada sustentabilidade.')
+        print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE RECICLAGEM: ", end="")
 
-    print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE MEIO DE TRANSPORTE: ", end="")
+        if medias[2] == len(myresult):
+            print('Alta sustentabilidade')
+        elif medias[2] == -len(myresult):
+            print('Baixa sustentabilidade.')
+        else:
+            print('Moderada sustentabilidade.')
 
-    if medias[3] == len(myresult):
-        print('Alta sustentabilidade')
-    elif medias[3] == -len(myresult):
-        print('Baixa sustentabilidade.')
-    else:
-        print('Moderada sustentabilidade.')
+        print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE MEIO DE TRANSPORTE: ", end="")
+
+        if medias[3] == len(myresult):
+            print('Alta sustentabilidade')
+        elif medias[3] == -len(myresult):
+            print('Baixa sustentabilidade.')
+        else:
+            print('Moderada sustentabilidade.')        
+
+
+
