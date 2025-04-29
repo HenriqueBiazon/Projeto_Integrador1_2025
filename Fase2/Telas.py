@@ -96,12 +96,14 @@ def telaInserir():
     """)
     print("INSIRA A DATA DE HOJE (DD/MM/AAAA):")
     data = str(input("> "))
-
+    
     dataInvalida = True
     while dataInvalida == True:
         tabela,linhas = DBselect()
+        if data == 0:
+            return  
         if linhas == 0:
-            return
+            dataInvalida = False
         for x in tabela:
             if x[1] == data:
                 dataInvalida = True
@@ -109,7 +111,7 @@ def telaInserir():
             else:
                 dataInvalida = False
         if dataInvalida:
-            print("\nERRO! Digite uma data ainda não inserida:\n")
+            print("\nERRO! Digite uma data válida:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
                 print("-",x[1])
@@ -174,12 +176,12 @@ def telaAlterar():
 
     dataValida = False
     while dataValida == False:
+        if data == "0":
+            return
         for x in tabela:
             if x[1] == data:
                 dataValida = True
                 break
-        if data == "0":
-                return
         if not dataValida:
             print("\nERRO! Digite uma data já inserida no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
@@ -298,7 +300,6 @@ def telaExcluir():
     if linhas == 0:
         print("ERRO! Insira alguma data no sistema")
         return
-    
     print("DATAS JÁ INSERIDAS:")
     for x in tabela:
         print("- ",x[1])
@@ -308,6 +309,8 @@ def telaExcluir():
 
     dataValida = False
     while dataValida == False:
+        if data == "0":
+            return
         for x in tabela:
             if x[1] == data:
                 dataValida = True
@@ -319,8 +322,7 @@ def telaExcluir():
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-            if data == "0":
-                return
+            
     print()
 
     myresult = DBselect_dia(data)
@@ -383,7 +385,6 @@ def telaClassificar():
     medias = [0, 0, 0, 0]
     if linhas == 0:
         print("Nenhum dia para classificar")
-        input("                                    <APERTE ENTER>")
         return
     for x in myresult:
         data = x[1]
