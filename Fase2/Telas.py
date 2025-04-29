@@ -325,25 +325,25 @@ def telaExcluir():
             
     print()
 
-    myresult = DBselect_dia(data)
-    myresult[5] = myresult[5].split(",")
+    diaSelecionado = DBselect_dia(data)
+    diaSelecionado[5] = diaSelecionado[5].split(",")
 
-    classificacaoDia(myresult[1], myresult[2], myresult[3], myresult[4], myresult[5])
+    classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
     print()
     print("-----------------------------------VALORES CADASTRADOS:------------------------------------")
     print()
-    print(f"CONSUMO DE ÁGUA: {myresult[2]}")
-    print(f"CONSUMO DE ENERGIA: {myresult[3]}")
-    print(f"PORCENTAGEM DE RECICLAGEM: {myresult[4]}")
+    print(f"CONSUMO DE ÁGUA: {diaSelecionado[2]}")
+    print(f"CONSUMO DE ENERGIA: {diaSelecionado[3]}")
+    print(f"PORCENTAGEM DE RECICLAGEM: {diaSelecionado[4]}")
     print()
     print("MEIOS DE TRANSPORTE UTILIZADOS:")
-    print(f"TRANSPORTE PÚBLICO {myresult[5][0]}")
-    print(f"BICICLETA: {myresult[5][1]}")
-    print(f"CAMINHADA: {myresult[5][2]}")
-    print(f"CARRO (combustível fóssil): {myresult[5][3]}")
-    print(f"CARRO ELÉTRICO: {myresult[5][4]}")
-    print(f"CARONA COMPARTILHADA (combustível fóssil): {myresult[5][5]}")
+    print(f"TRANSPORTE PÚBLICO {diaSelecionado[5][0]}")
+    print(f"BICICLETA: {diaSelecionado[5][1]}")
+    print(f"CAMINHADA: {diaSelecionado[5][2]}")
+    print(f"CARRO (combustível fóssil): {diaSelecionado[5][3]}")
+    print(f"CARRO ELÉTRICO: {diaSelecionado[5][4]}")
+    print(f"CARONA COMPARTILHADA (combustível fóssil): {diaSelecionado[5][5]}")
     print()
     input("                                    <APERTE ENTER>")
     print()
@@ -384,7 +384,7 @@ def telaClassificar():
 -------------------------------------------------------------------------------------------
 """)
 
-    myresult,linhas = DBselect()
+    tabela,linhas = DBselect()
     medias = [0, 0, 0, 0]
     if linhas == 0:
         print("Nenhum dia para classificar")
@@ -401,7 +401,7 @@ def telaClassificar():
         print(f"DIGITE O DIA PARA CLASSIFICAR\n")
         data = input()
     elif opcaoClassificar == 2:
-        for x in myresult:
+        for x in tabela:
             data = x[1]
             consumo_agua = x[2]
             consumo_energia = x[3]
@@ -416,36 +416,36 @@ def telaClassificar():
         print()
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ", end="")
 
-        if medias[0] == len(myresult):
+        if medias[0] == len(tabela):
             print('Alta sustentabilidade')
-        elif medias[0] == -len(myresult):
+        elif medias[0] == -len(tabela):
             print('Baixa sustentabilidade.')
         else:
             print('Moderada sustentabilidade.')
 
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ENERGIA: ", end="")
 
-        if medias[1] == len(myresult):
+        if medias[1] == len(tabela):
             print('Alta sustentabilidade')
-        elif medias[1] == -len(myresult):
+        elif medias[1] == -len(tabela):
             print('Baixa sustentabilidade.')
         else:
             print('Moderada sustentabilidade.')
 
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE RECICLAGEM: ", end="")
 
-        if medias[2] == len(myresult):
+        if medias[2] == len(tabela):
             print('Alta sustentabilidade')
-        elif medias[2] == -len(myresult):
+        elif medias[2] == -len(tabela):
             print('Baixa sustentabilidade.')
         else:
             print('Moderada sustentabilidade.')
 
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE MEIO DE TRANSPORTE: ", end="")
 
-        if medias[3] == len(myresult):
+        if medias[3] == len(tabela):
             print('Alta sustentabilidade')
-        elif medias[3] == -len(myresult):
+        elif medias[3] == -len(tabela):
             print('Baixa sustentabilidade.')
         else:
             print('Moderada sustentabilidade.')        
