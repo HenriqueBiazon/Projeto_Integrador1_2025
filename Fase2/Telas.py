@@ -109,8 +109,11 @@ def telaInserir():
             else:
                 dataInvalida = False
         if dataInvalida:
-            print()
-            print("ERRO! Digite uma data ainda não inserida:\n(Digite 0 para voltar para o menu)")
+            print("\nERRO! Digite uma data ainda não inserida:\n")
+            print("DATAS JÁ INSERIDAS:")
+            for x in tabela:
+                print("-",x[1])
+            print("(OU digite 0 para voltar para o menu)")
             data = input(">")
             if data == "0":
                 return
@@ -160,30 +163,36 @@ def telaAlterar():
                                          ALTERAR
 -------------------------------------------------------------------------------------------
     """)
+    tabela,linhas = DBselect()
+
+    if linhas == 0:
+        print("ERRO! Insira alguma data no sistema")
+        input("                                    <APERTE ENTER>")
+        return
+    
+    print("DATAS JÁ INSERIDAS:")
+    for x in tabela:
+        print("-",x[1])
+    print("(Digite 0 para voltar para o menu)\n")
     print("INSIRA A DATA PARA ALTERAR (DD/MM/AAAA): ")
     data = input(">")
 
     dataValida = False
     while dataValida == False:
-        tabela,linhas = DBselect()
-        if linhas == 0:
-            print("ERRO! Insira alguma data no sistema para alterar")
-            input("                                    <APERTE ENTER>")
-            return
-        else:
-            for x in tabela:
-                if x[1] == data:
-                    dataValida = True
-                    break
+        for x in tabela:
+            if x[1] == data:
+                dataValida = True
+                break
+        if data == "0":
+                return
         if not dataValida:
-            print("ERRO! Digite uma data válida:\n")
+            print("\nERRO! Digite uma data já inserida no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-            if data == "0":
-                return
+            
 
     myresult = DBselect_dia(data)
     myresult[5] = myresult[5].split(",")
@@ -291,23 +300,28 @@ def telaExcluir():
                                          EXCLUIR
 -------------------------------------------------------------------------------------------
     """)
+    tabela,linhas = DBselect()
+
+    if linhas == 0:
+        print("ERRO! Insira alguma data no sistema")
+        input("                                    <APERTE ENTER>")
+        return
+    
+    print("DATAS JÁ INSERIDAS:")
+    for x in tabela:
+        print("- ",x[1])
+    print("(Digite 0 para voltar para o menu)\n")
     print("INSIRA A DATA PARA EXCLUIR (DD/MM/AAAA): ")
     data = input(">")
 
     dataValida = False
     while dataValida == False:
-        tabela,linhas = DBselect()
-        if linhas == 0:
-            print("ERRO! Insira alguma data no sistema para alterar")
-            input("                                    <APERTE ENTER>")
-            return
-        else:
-            for x in tabela:
-                if x[1] == data:
-                    dataValida = True
-                    break
+        for x in tabela:
+            if x[1] == data:
+                dataValida = True
+                break
         if not dataValida:
-            print("ERRO! Digite uma data válida:\n")
+            print("\nERRO! Digite uma data já existente no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
                 print("-",x[1])
