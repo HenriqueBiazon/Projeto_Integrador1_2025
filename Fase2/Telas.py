@@ -101,7 +101,7 @@ def telaInserir():
     while dataInvalida == True:
         tabela,linhas = DBselect()
         if linhas == 0:
-            dataInvalida = False
+            return
         for x in tabela:
             if x[1] == data:
                 dataInvalida = True
@@ -115,8 +115,6 @@ def telaInserir():
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-            if data == "0":
-                return
             dataInvalida = True
 
     print()
@@ -148,8 +146,6 @@ def telaInserir():
 
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
 
-    input("                                    <APERTE ENTER>")
-
 ## ALTERAR DIA
 
 def telaAlterar():
@@ -167,7 +163,6 @@ def telaAlterar():
 
     if linhas == 0:
         print("ERRO! Insira alguma data no sistema")
-        input("                                    <APERTE ENTER>")
         return
     
     print("DATAS JÁ INSERIDAS:")
@@ -285,8 +280,6 @@ def telaAlterar():
 
     classificacaoDia(myresult[1], myresult[2], myresult[3], myresult[4], myresult[5])
 
-    input("\n                                    <APERTE ENTER>")
-
 ## EXCLUIR DIA
 
 def telaExcluir():
@@ -304,7 +297,6 @@ def telaExcluir():
 
     if linhas == 0:
         print("ERRO! Insira alguma data no sistema")
-        input("                                    <APERTE ENTER>")
         return
     
     print("DATAS JÁ INSERIDAS:")
@@ -373,7 +365,6 @@ def telaExcluir():
         print(f"DIA {data} EXCLUÍDO COM SUCESSO\n")
     else:
         print("VOLTANDO PARA A TELA DE MENU\n")
-    input("                                    <APERTE ENTER>")
 
 ## CLASSIFICAR DIA
 
@@ -443,5 +434,3 @@ def telaClassificar():
         print('Baixa sustentabilidade.')
     else:
         print('Moderada sustentabilidade.')
-
-    input("\n                                    <APERTE ENTER>")
