@@ -1,9 +1,14 @@
 #Fase 2 - Implementação do banco de dados
 
-from Telas import telaAlterar, telaClassificar, telaExcluir, telaInserir, telaMenu, apagarTerminal
+from Telas import telaAlterar, telaClassificar, telaExcluir, telaInserir, telaMenu, telaLogin, apagarTerminal
 
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
+#Fase 3 - Tela de log-in:
+Id_usuario = telaLogin()
+
+apagarTerminal()
+print(Id_usuario)
 #Tela de início
 sair = False
 while sair == False:
@@ -14,25 +19,25 @@ while sair == False:
 
     if opcaoMenu == 1:
 
-        telaInserir() 
+        telaInserir(Id_usuario) 
 
     elif opcaoMenu == 2:
 
-        telaAlterar()
+        telaAlterar(Id_usuario)
 
     elif opcaoMenu == 3:
 
-        telaExcluir()
+        telaExcluir(Id_usuario)
 
     elif opcaoMenu == 4:
 
-        telaClassificar()
+        telaClassificar(Id_usuario)
 
     elif opcaoMenu == 5:
 
         print("\n                    OBRIGADO POR USAR O SISTEMA DE SUSTENTABILIDADE!")
         sair = True
 
-    input("\n                                    <APERTE ENTER>")
+    input("                                    <APERTE ENTER>")
 
     apagarTerminal()

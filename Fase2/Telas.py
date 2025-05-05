@@ -16,7 +16,6 @@ def telaMenu():
 |   1 - INSERIR   |   2 - ALTERAR   |   3 - EXCLUIR   | 4 - CLASSIFICAR |    5 - SAIR     |
 -------------------------------------------------------------------------------------------
     """)
-    opcaoMenu = 0
     opcaoMenu = int(input(">"))
 
     while 1 > opcaoMenu or opcaoMenu > 5:
@@ -83,7 +82,7 @@ def classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem
 
 ## INSERIR DIA
 
-def telaInserir():
+def telaInserir(Id_usuario):
     from conectBanco import DBinsert_dados, DBselect
 
     print("""
@@ -99,7 +98,7 @@ def telaInserir():
     
     dataInvalida = True
     while dataInvalida == True:
-        tabela,linhas = DBselect()
+        tabela,linhas = DBselect(Id_usuario)
         if data == 0:
             return  
         if linhas == 0:
@@ -118,39 +117,42 @@ def telaInserir():
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
             dataInvalida = True
+    while True:
+        try:
+            print()
+            print("INSIRA SEUS DADOS DE CONSUMO DE ÁGUA (L):")
+            consumo_agua = int(input("> "))
+            print()
 
-    print()
-    print("INSIRA SEUS DADOS DE CONSUMO DE ÁGUA (L):")
-    consumo_agua = int(input("> "))
-    print()
+            print("INSIRA SEUS DADOS DE CONSUMO DE ENERGIA (KwH):")
+            consumo_energia = int(input("> "))
+            print()
 
-    print("INSIRA SEUS DADOS DE CONSUMO DE ENERGIA (KwH):")
-    consumo_energia = int(input("> "))
-    print()
+            print("INSIRA A PORCENTAGEM DE RESÍDUOS RECICLADOS (%):")
+            porcentagem_reciclagem = int(input("> "))
+            print()
 
-    print("INSIRA A PORCENTAGEM DE RESÍDUOS RECICLADOS (%):")
-    porcentagem_reciclagem = int(input("> "))
-    print()
+            print('QUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (SIM/NÃO)')
+            meios_transporte = ['', '', '', '', '', '']
 
-    print('QUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (SIM/NÃO)')
-    meios_transporte = ['', '', '', '', '', '']
-
-    meios_transporte[0] = input('TRANSPORTE PÚBLICO: ').upper()
-    meios_transporte[1] = input('BICICLETA: ').upper()
-    meios_transporte[2] = input('CAMINHADA: ').upper()
-    meios_transporte[3] = input('CARRO (Combustível fóssil): ').upper()
-    meios_transporte[4] = input('CARRO ELÉTRICO: ').upper()
-    meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil): ').upper()
-
+            meios_transporte[0] = input('TRANSPORTE PÚBLICO: ').upper()
+            meios_transporte[1] = input('BICICLETA: ').upper()
+            meios_transporte[2] = input('CAMINHADA: ').upper()
+            meios_transporte[3] = input('CARRO (Combustível fóssil): ').upper()
+            meios_transporte[4] = input('CARRO ELÉTRICO: ').upper()
+            meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil): ').upper()
+            break
+        except:
+            print("ERRO! O dado inserido está inválido")
     string_meios_transporte = ','.join(meios_transporte)
 
     classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
 
-    DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
+    DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte, Id_usuario)
 
 ## ALTERAR DIA
 
-def telaAlterar():
+def telaAlterar(Id_usuario):
     from conectBanco import DBselect, DBselect_dia, DBalter_dia
 
     print("""
@@ -161,7 +163,7 @@ def telaAlterar():
                                          ALTERAR
 -------------------------------------------------------------------------------------------
     """)
-    tabela,linhas = DBselect()
+    tabela,linhas = DBselect(Id_usuario)
 
     if linhas == 0:
         print("ERRO! Insira alguma data no sistema")
@@ -191,7 +193,7 @@ def telaAlterar():
             data = input(">")
             
 
-    myresult = DBselect_dia(data)
+    myresult = DBselect_dia(data,Id_usuario)
     myresult[5] = myresult[5].split(",")
 
     classificacaoDia(myresult[1], myresult[2], myresult[3], myresult[4], myresult[5])
@@ -232,7 +234,7 @@ def telaAlterar():
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ÁGUA (L):")
         consumo_agua = int(input("> "))
-        DBalter_dia(data, "consumo_agua", consumo_agua)
+        DBalter_dia(data, "consumo_agua", consumo_agua, Id_usuario)
 
         print("\nCONSUMO DE ÁGUA ALTERADO COM SUCESSO!")
 
@@ -241,7 +243,7 @@ def telaAlterar():
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ENERGIA (KwH):")
         consumo_energia = int(input("> "))
-        DBalter_dia(data, "consumo_energia", consumo_energia)
+        DBalter_dia(data, "consumo_energia", consumo_energia, Id_usuario)
 
         print("\nCONSUMO DE ENERGIA ALTERADO COM SUCESSO!")
 
@@ -250,7 +252,7 @@ def telaAlterar():
 
         print("\nINSIRA SUA PORCENTAGEM ALTERADA DE RECICLAGEM (%):")
         porcentagem_reciclagem = int(input("> "))
-        DBalter_dia(data, "porcentagem_reciclagem", porcentagem_reciclagem)
+        DBalter_dia(data, "porcentagem_reciclagem", porcentagem_reciclagem, Id_usuario)
 
         print("\nPORCENTAGEM DE RECICLAGEM ALTERADA COM SUCESSO!")
 
@@ -269,7 +271,7 @@ def telaAlterar():
 
         string_meios_transporte = ','.join(meios_transporte)
 
-        DBalter_dia(data, "meios_transporte", string_meios_transporte)
+        DBalter_dia(data, "meios_transporte", string_meios_transporte, Id_usuario)
 
         print("\nMEIOS DE TRANSPORTE UTILIZADOS ALTERADOS COM SUCESSO!")
 
@@ -277,14 +279,14 @@ def telaAlterar():
         print("NENHUMA ALTERAÇÃO FEITA")
         return
     
-    myresult = DBselect_dia(data)
+    myresult = DBselect_dia(data, Id_usuario)
     myresult[5] = myresult[5].split(",")
 
     classificacaoDia(myresult[1], myresult[2], myresult[3], myresult[4], myresult[5])
 
 ## EXCLUIR DIA
 
-def telaExcluir():
+def telaExcluir(Id_usuario):
     from conectBanco import DBselect, DBselect_dia, DBdelete_dia
 
     print("""
@@ -295,7 +297,7 @@ def telaExcluir():
                                          EXCLUIR
 -------------------------------------------------------------------------------------------
     """)
-    tabela,linhas = DBselect()
+    tabela,linhas = DBselect(Id_usuario)
 
     if linhas == 0:
         print("ERRO! Insira alguma data no sistema")
@@ -325,7 +327,7 @@ def telaExcluir():
             
     print()
 
-    diaSelecionado = DBselect_dia(data)
+    diaSelecionado = DBselect_dia(data, Id_usuario)
     diaSelecionado[5] = diaSelecionado[5].split(",")
 
     classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
@@ -363,14 +365,14 @@ def telaExcluir():
         opcaoExcluir = int(input(">"))
     print()
     if opcaoExcluir == 1:
-        DBdelete_dia(data)
+        DBdelete_dia(data, Id_usuario)
         print(f"DIA {data} EXCLUÍDO COM SUCESSO\n")
     else:
         print("VOLTANDO PARA A TELA DE MENU\n")
 
 ## CLASSIFICAR DIA
 
-def telaClassificar():
+def telaClassificar(Id_usuario):
     from conectBanco import DBselect
 
     print("""
@@ -384,7 +386,7 @@ def telaClassificar():
 -------------------------------------------------------------------------------------------
 """)
 
-    tabela,linhas = DBselect()
+    tabela,linhas = DBselect(Id_usuario)
     medias = [0, 0, 0, 0]
     if linhas == 0:
         print("Nenhum dia para classificar")
@@ -407,11 +409,12 @@ def telaClassificar():
             consumo_energia = x[3]
             porcentagem_reciclagem = x[4]
             string_meio_transporte = x[5]
-            meios_transporte = string_meio_transporte.split(",")
-
+            meios_transporte = string_meio_transporte.split(",")   
+    else:
+        for x in tabela:
             mediaDia = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
             medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
-    else:
+
         print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
         print()
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ", end="")
@@ -449,6 +452,60 @@ def telaClassificar():
             print('Baixa sustentabilidade.')
         else:
             print('Moderada sustentabilidade.')        
+
+def telaLogin():
+    from conectBanco import DBselect_usuario, DBinsert_usuario, DBselect_tabela_usuarios
+
+    login = False
+    while login == False:
+        print("""
+-------------------------------------------------------------------------------------------
+|                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
+-------------------------------------------------------------------------------------------
+
+                                          LOG-IN                                           
+-------------------------------------------------------------------------------------------
+|                 1 - ENTRAR                 |               2 - CADASTRAR                |
+-------------------------------------------------------------------------------------------""")
+        opcaoLogin = int(input(">"))
+
+        while opcaoLogin != 1 and opcaoLogin != 2:
+            print()
+            print("ERRO! Escolha uma opção válida (1 ou 2):")
+            opcaoLogin = int(input(">"))
+
+        if opcaoLogin == 1:
+            print("\n                                         ENTRANDO:\n")
+            nome = input("INSIRA O SEU NOME: ")
+            senha = input("INSIRA SUA SENHA: ")
+            try:
+                usuario = DBselect_usuario(nome,senha)
+                Id_usuario = usuario[0]
+                print("Você fez log-in na sua conta!")
+                input("                                      <APERTE ENTER>")
+                login = True
+            except:
+                print("ERRO! O usuário e/ou a senha estão incorretos")
+                input("                                      <APERTE ENTER>")
+        else:
+            print("\n                                         CADASTRO:\n")
+            nome = input("INSIRA O SEU NOME: ")
+            senha = input("INSIRA SUA SENHA: ")
+            try:
+                tabela = DBselect_tabela_usuarios()
+                Invalido = False
+                for x in tabela:
+                    if nome == x[0]:
+                        print("ERRO! Nome de usuário já cadastrado")
+                        Invalido = True
+                if Invalido == False:
+                    DBinsert_usuario(nome,senha)
+                    print("Usuário cadastrado com sucesso!")
+                    input("                                      <APERTE ENTER>")
+            except:
+                print("ERRO! Não foi possível cadastrar o usuário")
+                input("                                      <APERTE ENTER>")
+    return Id_usuario
 
 
 
