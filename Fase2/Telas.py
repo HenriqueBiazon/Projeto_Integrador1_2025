@@ -95,7 +95,6 @@ def telaInserir(Id_usuario):
     """)
     print("INSIRA A DATA DE HOJE (DD/MM/AAAA):")
     data = str(input("> "))
-    
     dataInvalida = True
     while dataInvalida == True:
         tabela,linhas = DBselect(Id_usuario)
@@ -144,6 +143,7 @@ def telaInserir(Id_usuario):
             break
         except:
             print("ERRO! O dado inserido está inválido")
+        print()
     string_meios_transporte = ','.join(meios_transporte)
 
     classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
@@ -176,15 +176,15 @@ def telaAlterar(Id_usuario):
     print("INSIRA A DATA PARA ALTERAR (DD/MM/AAAA): ")
     data = input(">")
 
-    dataValida = False
-    while dataValida == False:
+    dataInvalida = True
+    while dataInvalida == True:
         if data == "0":
             return
         for x in tabela:
             if x[1] == data:
-                dataValida = True
+                dataInvalida = True
                 break
-        if not dataValida:
+        if not dataInvalida:
             print("\nERRO! Digite uma data já inserida no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
@@ -193,25 +193,25 @@ def telaAlterar(Id_usuario):
             data = input(">")
             
 
-    myresult = DBselect_dia(data,Id_usuario)
-    myresult[5] = myresult[5].split(",")
+    diaSelecionado = DBselect_dia(data,Id_usuario)
+    diaSelecionado[5] = diaSelecionado[5].split(",")
 
-    classificacaoDia(myresult[1], myresult[2], myresult[3], myresult[4], myresult[5])
+    classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
     print()
     print("-----------------------------------VALORES CADASTRADOS:------------------------------------")
     print()
-    print(f"CONSUMO DE ÁGUA: {myresult[2]}")
-    print(f"CONSUMO DE ENERGIA: {myresult[3]}")
-    print(f"PORCENTAGEM DE RECICLAGEM: {myresult[4]}")
+    print(f"CONSUMO DE ÁGUA: {diaSelecionado[2]}")
+    print(f"CONSUMO DE ENERGIA: {diaSelecionado[3]}")
+    print(f"PORCENTAGEM DE RECICLAGEM: {diaSelecionado[4]}")
     print()
     print("MEIOS DE TRANSPORTE UTILIZADOS:")
-    print(f"TRANSPORTE PÚBLICO {myresult[5][0]}")
-    print(f"BICICLETA: {myresult[5][1]}")
-    print(f"CAMINHADA: {myresult[5][2]}")
-    print(f"CARRO (combustível fóssil): {myresult[5][3]}")
-    print(f"CARRO ELÉTRICO: {myresult[5][4]}")
-    print(f"CARONA COMPARTILHADA (combustível fóssil): {myresult[5][5]}")
+    print(f"TRANSPORTE PÚBLICO {diaSelecionado[5][0]}")
+    print(f"BICICLETA: {diaSelecionado[5][1]}")
+    print(f"CAMINHADA: {diaSelecionado[5][2]}")
+    print(f"CARRO (combustível fóssil): {diaSelecionado[5][3]}")
+    print(f"CARRO ELÉTRICO: {diaSelecionado[5][4]}")
+    print(f"CARONA COMPARTILHADA (combustível fóssil): {diaSelecionado[5][5]}")
     print()
     input("                                    <APERTE ENTER>")
     print()
@@ -279,10 +279,10 @@ def telaAlterar(Id_usuario):
         print("NENHUMA ALTERAÇÃO FEITA")
         return
     
-    myresult = DBselect_dia(data, Id_usuario)
-    myresult[5] = myresult[5].split(",")
+    diaSelecionado = DBselect_dia(data, Id_usuario)
+    diaSelecionado[5] = diaSelecionado[5].split(",")
 
-    classificacaoDia(myresult[1], myresult[2], myresult[3], myresult[4], myresult[5])
+    classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
 ## EXCLUIR DIA
 
@@ -357,8 +357,10 @@ def telaExcluir(Id_usuario):
 |                   1 - SIM                   |                  2 - NÃO                  |
 -------------------------------------------------------------------------------------------
 """)
-    opcaoExcluir = int(input(">"))
-    
+    try:
+        opcaoExcluir = int(input(">"))
+    except:
+        opcaoExcluir = 0
     while opcaoExcluir < 1 or opcaoExcluir > 2:
         print()
         print("ERRO! Escolha uma opção válida:")
@@ -373,7 +375,7 @@ def telaExcluir(Id_usuario):
 ## CLASSIFICAR DIA
 
 def telaClassificar(Id_usuario):
-    from conectBanco import DBselect
+    from conectBanco import DBselect,DBselect_dia
 
     print("""
 -------------------------------------------------------------------------------------------
@@ -400,8 +402,33 @@ def telaClassificar(Id_usuario):
     print()
 
     if opcaoClassificar == 1:
-        print(f"DIGITE O DIA PARA CLASSIFICAR\n")
-        data = input()
+
+        print("DATAS JÁ INSERIDAS:")
+        for x in tabela:
+            print("-",x[1])
+        print("(Digite 0 para voltar para o menu)\n")
+        print("INSIRA O DIA PARA CLASSIFICAR (DD/MM/AAAA): ")
+        data = input(">")
+        dataValida = False
+        while dataValida == False:
+            if data == "0":
+                return
+            for x in tabela:
+                if x[1] == data:
+                    dataValida = True
+                    break
+            if not dataValida:
+                print("\nERRO! Digite uma data já inserida no sistema:\n")
+                print("DATAS JÁ INSERIDAS:")
+                for x in tabela:
+                    print("-",x[1])
+                print("(OU digite 0 para voltar para o menu)")
+                data = input(">")
+
+        diaSelecionado = DBselect_dia(data,Id_usuario)
+        diaSelecionado[5] = diaSelecionado[5].split(",")
+        classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
+
     elif opcaoClassificar == 2:
         for x in tabela:
             data = x[1]
@@ -409,12 +436,19 @@ def telaClassificar(Id_usuario):
             consumo_energia = x[3]
             porcentagem_reciclagem = x[4]
             string_meio_transporte = x[5]
-            meios_transporte = string_meio_transporte.split(",")   
+            meios_transporte = string_meio_transporte.split(",")
+            classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
     else:
         for x in tabela:
+            data = x[1]
+            consumo_agua = x[2]
+            consumo_energia = x[3]
+            porcentagem_reciclagem = x[4]
+            string_meio_transporte = x[5]
+            meios_transporte = string_meio_transporte.split(",")
             mediaDia = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
             medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
-
+        print()
         print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
         print()
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ", end="")
@@ -467,12 +501,18 @@ def telaLogin():
 -------------------------------------------------------------------------------------------
 |                 1 - ENTRAR                 |               2 - CADASTRAR                |
 -------------------------------------------------------------------------------------------""")
-        opcaoLogin = int(input(">"))
-
+        try:
+            opcaoLogin = int(input(">"))
+        except:
+            opcaoLogin = 0
         while opcaoLogin != 1 and opcaoLogin != 2:
             print()
             print("ERRO! Escolha uma opção válida (1 ou 2):")
-            opcaoLogin = int(input(">"))
+            try:
+                opcaoLogin = int(input(">"))
+            except:
+                opcaoLogin = 0
+
 
         if opcaoLogin == 1:
             print("\n                                         ENTRANDO:\n")
@@ -506,6 +546,3 @@ def telaLogin():
                 print("ERRO! Não foi possível cadastrar o usuário")
                 input("                                      <APERTE ENTER>")
     return Id_usuario
-
-
-
