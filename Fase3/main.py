@@ -5,10 +5,13 @@ from Telas import telaAlterar, telaClassificar, telaExcluir, telaInserir, telaMe
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
 #Fase 3 - Tela de log-in:
+apagarTerminal()
+print("\n\n          BEM VINDO AO SISTEMA DE MONITORAMENTO DE SUSTENTABILIDADE PESSOAL!")
+input("                                    <APERTE ENTER>")
+apagarTerminal()
 Id_usuario = telaLogin()
 
 apagarTerminal()
-print(Id_usuario)
 #Tela de início
 sair = False
 while sair == False:
@@ -35,7 +38,7 @@ while sair == False:
 
     elif opcaoMenu == 5:
 
-        print("\n                    OBRIGADO POR USAR O SISTEMA DE SUSTENTABILIDADE!")
+        print("\n\n                    OBRIGADO POR USAR O SISTEMA DE SUSTENTABILIDADE!")
         sair = True
 
     input("                                    <APERTE ENTER>")

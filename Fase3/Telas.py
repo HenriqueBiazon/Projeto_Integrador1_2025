@@ -68,10 +68,10 @@ def classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem
 
     print(f"CLASSIFICAÇÃO DE SUSTENTABILIDADE DE MEIO DE TRANSPORTE: ", end="")
 
-    if ((meios_transporte[1] == 'SIM') or (meios_transporte[0] == 'SIM') or (meios_transporte[4] == 'SIM') or (meios_transporte[2] == 'SIM')) and ((meios_transporte[5] == 'SIM') or (meios_transporte[3] == 'SIM')):
+    if ((meios_transporte[1] == 'S') or (meios_transporte[0] == 'S') or (meios_transporte[4] == 'S') or (meios_transporte[2] == 's')) and ((meios_transporte[5] == 'S') or (meios_transporte[3] == 'S')):
         print('Moderada sustentabilidade.')
 
-    elif (meios_transporte[5] == 'SIM') or (meios_transporte[3] == 'SIM'):
+    elif (meios_transporte[5] == 'S') or (meios_transporte[3] == 'S'):
         print('Baixa sustentabilidade.')
         medias[3] -= 1
     else:
@@ -182,16 +182,18 @@ def telaAlterar(Id_usuario):
             return
         for x in tabela:
             if x[1] == data:
-                dataInvalida = True
+                dataInvalida = False
                 break
-        if not dataInvalida:
+        if dataInvalida:
             print("\nERRO! Digite uma data já inserida no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-            
+
+    apagarTerminal()
+    print()
 
     diaSelecionado = DBselect_dia(data,Id_usuario)
     diaSelecionado[5] = diaSelecionado[5].split(",")
@@ -324,9 +326,8 @@ def telaExcluir(Id_usuario):
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-            
+    apagarTerminal()
     print()
-
     diaSelecionado = DBselect_dia(data, Id_usuario)
     diaSelecionado[5] = diaSelecionado[5].split(",")
 
@@ -449,7 +450,9 @@ def telaClassificar(Id_usuario):
             mediaDia = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
             medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
         print()
+        print("-------------------------------------------------------------------------------------------")
         print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
+        print("-------------------------------------------------------------------------------------------")
         print()
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ", end="")
 
@@ -525,8 +528,15 @@ def telaLogin():
                 input("                                      <APERTE ENTER>")
                 login = True
             except:
-                print("ERRO! O usuário e/ou a senha estão incorretos")
+                tabela = DBselect_tabela_usuarios()
+                for x in tabela:
+                    if nome != x[1]:
+                        print("Nome não cadastrado")
+                        break
+                else:
+                    print("ERRO! O usuário e/ou a senha estão incorretos")
                 input("                                      <APERTE ENTER>")
+                apagarTerminal()
         else:
             print("\n                                         CADASTRO:\n")
             nome = input("INSIRA O SEU NOME: ")
@@ -535,7 +545,7 @@ def telaLogin():
                 tabela = DBselect_tabela_usuarios()
                 Invalido = False
                 for x in tabela:
-                    if nome == x[0]:
+                    if nome == x[1]:
                         print("ERRO! Nome de usuário já cadastrado")
                         Invalido = True
                 if Invalido == False:
@@ -545,4 +555,5 @@ def telaLogin():
             except:
                 print("ERRO! Não foi possível cadastrar o usuário")
                 input("                                      <APERTE ENTER>")
+                apagarTerminal()
     return Id_usuario
