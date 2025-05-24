@@ -1,6 +1,17 @@
+import os
+from conectBanco import (
+    DBinsert_dados,
+    DBselect,
+    DBselect_dia,
+    DBalter_dia,
+    DBdelete_dia,
+    DBselect_usuario,
+    DBinsert_usuario,
+    DBselect_tabela_usuarios
+)
+
 ## APAGAR TERMINAL
 def apagarTerminal():
-    import os
     os.system("cls")
 
 ## MENU
@@ -83,8 +94,6 @@ def classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem
 ## INSERIR DIA
 
 def telaInserir(Id_usuario):
-    from conectBanco import DBinsert_dados, DBselect
-
     print("""
 -------------------------------------------------------------------------------------------
 |                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
@@ -131,7 +140,7 @@ def telaInserir(Id_usuario):
             porcentagem_reciclagem = int(input("> "))
             print()
 
-            print('QUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (SIM/NÃO)')
+            print('QUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (S/N)')
             meios_transporte = ['', '', '', '', '', '']
 
             meios_transporte[0] = input('TRANSPORTE PÚBLICO: ').upper()
@@ -153,8 +162,6 @@ def telaInserir(Id_usuario):
 ## ALTERAR DIA
 
 def telaAlterar(Id_usuario):
-    from conectBanco import DBselect, DBselect_dia, DBalter_dia
-
     print("""
 -------------------------------------------------------------------------------------------
 |                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
@@ -261,7 +268,7 @@ def telaAlterar(Id_usuario):
     elif opcaoAlterar == 4:
         print(f"ALTERANDO OS MEIOS DE TRANSPORTE UTILIZADOS NO DIA {data}")
 
-        print('\nQUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (SIM/NÃO)')
+        print('\nQUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (S/N)')
 
         meios_transporte = ['', '', '', '', '', '']
         meios_transporte[0] = input('TRANSPORTE PÚBLICO: ').upper()
@@ -289,8 +296,6 @@ def telaAlterar(Id_usuario):
 ## EXCLUIR DIA
 
 def telaExcluir(Id_usuario):
-    from conectBanco import DBselect, DBselect_dia, DBdelete_dia
-
     print("""
 -------------------------------------------------------------------------------------------
 |                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
@@ -376,8 +381,6 @@ def telaExcluir(Id_usuario):
 ## CLASSIFICAR DIA
 
 def telaClassificar(Id_usuario):
-    from conectBanco import DBselect,DBselect_dia
-
     print("""
 -------------------------------------------------------------------------------------------
 |                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
@@ -491,8 +494,6 @@ def telaClassificar(Id_usuario):
             print('Moderada sustentabilidade.')        
 
 def telaLogin():
-    from conectBanco import DBselect_usuario, DBinsert_usuario, DBselect_tabela_usuarios
-
     login = False
     while login == False:
         print("""

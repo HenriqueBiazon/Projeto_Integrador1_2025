@@ -1,6 +1,6 @@
 #Fase 2 - Implementação do banco de dados
 
-from Telas import telaAlterar, telaClassificar, telaExcluir, telaInserir, telaMenu, telaLogin, apagarTerminal
+from Telas import *
 
 #Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
 
