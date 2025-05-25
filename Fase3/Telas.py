@@ -209,8 +209,6 @@ def telaAlterar(Id_usuario):
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-
-    apagarTerminal()
     print()
     data = criptografar(data)
     diaSelecionado = DBselect_dia(data,Id_usuario)
@@ -351,7 +349,6 @@ def telaExcluir(Id_usuario):
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-    apagarTerminal()
     print()
     data = criptografar(data)
     diaSelecionado = DBselect_dia(data, Id_usuario)
