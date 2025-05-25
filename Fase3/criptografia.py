@@ -1,11 +1,11 @@
 import sympy
 from sympy import Matrix
 
-ALFABETO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+ALFABETO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, "
 CHAVE = Matrix([[3, 2], [1, 1]])  # matriz simples e válida
 
 def texto_para_numeros(texto):
-    texto = texto.upper().replace(" ", "")
+    texto = texto.upper()
     return [ALFABETO.index(c) for c in texto if c in ALFABETO]
 
 def numeros_para_texto(nums):
@@ -33,10 +33,3 @@ def descriptografar(texto):
         decript = chave_inv * bloco
         resultado.extend([int(x) % 36 for x in decript])
     return numeros_para_texto(resultado)
-
-# Exemplo de uso:
-mensagem = "Joao Pedro"
-criptografada = criptografar(mensagem)
-print("Mensagem criptografada:", criptografada)
-descriptografada = descriptografar(criptografada)
-print("Mensagem descriptografada:", descriptografada)

@@ -9,6 +9,7 @@ from conectBanco import (
     DBinsert_usuario,
     DBselect_tabela_usuarios
 )
+from criptografia import criptografar,descriptografar
 
 ## APAGAR TERMINAL
 def apagarTerminal():
@@ -106,10 +107,10 @@ def telaInserir(Id_usuario):
     data = str(input("> "))
     dataInvalida = True
     while dataInvalida == True:
-        tabela,linhas = DBselect(Id_usuario)
+        tabela = DBselect(Id_usuario)
         if data == 0:
             return  
-        if linhas == 0:
+        if len(tabela) == 0:
             dataInvalida = False
         for x in tabela:
             if x[1] == data:
@@ -156,7 +157,7 @@ def telaInserir(Id_usuario):
     string_meios_transporte = ','.join(meios_transporte)
 
     classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
-
+    data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = criptografar(data), criptografar(consumo_agua), criptografar(consumo_energia), criptografar(porcentagem_reciclagem), criptografar(string_meios_transporte)
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte, Id_usuario)
 
 ## ALTERAR DIA
@@ -170,9 +171,9 @@ def telaAlterar(Id_usuario):
                                          ALTERAR
 -------------------------------------------------------------------------------------------
     """)
-    tabela,linhas = DBselect(Id_usuario)
+    tabela = DBselect(Id_usuario)
 
-    if linhas == 0:
+    if len(tabela) == 0:
         print("ERRO! Insira alguma data no sistema")
         return
     
@@ -201,10 +202,11 @@ def telaAlterar(Id_usuario):
 
     apagarTerminal()
     print()
-
+    data = criptografar(data)
     diaSelecionado = DBselect_dia(data,Id_usuario)
+    diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5] = descriptografar(diaSelecionado[1]), descriptografar(diaSelecionado[2]), descriptografar(diaSelecionado[3]), descriptografar(diaSelecionado[4]), descriptografar(diaSelecionado[5])
     diaSelecionado[5] = diaSelecionado[5].split(",")
-
+    
     classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
     print()
@@ -243,6 +245,7 @@ def telaAlterar(Id_usuario):
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ÁGUA (L):")
         consumo_agua = int(input("> "))
+        consumo_agua = criptografar(consumo_agua)
         DBalter_dia(data, "consumo_agua", consumo_agua, Id_usuario)
 
         print("\nCONSUMO DE ÁGUA ALTERADO COM SUCESSO!")
@@ -252,6 +255,7 @@ def telaAlterar(Id_usuario):
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ENERGIA (KwH):")
         consumo_energia = int(input("> "))
+        consumo_energia = criptografar(consumo_energia)
         DBalter_dia(data, "consumo_energia", consumo_energia, Id_usuario)
 
         print("\nCONSUMO DE ENERGIA ALTERADO COM SUCESSO!")
@@ -261,6 +265,7 @@ def telaAlterar(Id_usuario):
 
         print("\nINSIRA SUA PORCENTAGEM ALTERADA DE RECICLAGEM (%):")
         porcentagem_reciclagem = int(input("> "))
+        porcentagem_reciclagem = criptografar(porcentagem_reciclagem)
         DBalter_dia(data, "porcentagem_reciclagem", porcentagem_reciclagem, Id_usuario)
 
         print("\nPORCENTAGEM DE RECICLAGEM ALTERADA COM SUCESSO!")
@@ -279,7 +284,7 @@ def telaAlterar(Id_usuario):
         meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil): ').upper()
 
         string_meios_transporte = ','.join(meios_transporte)
-
+        string_meios_transporte = criptografar(string_meios_transporte)
         DBalter_dia(data, "meios_transporte", string_meios_transporte, Id_usuario)
 
         print("\nMEIOS DE TRANSPORTE UTILIZADOS ALTERADOS COM SUCESSO!")
@@ -289,8 +294,8 @@ def telaAlterar(Id_usuario):
         return
     
     diaSelecionado = DBselect_dia(data, Id_usuario)
+    diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5] = descriptografar(diaSelecionado[1]), descriptografar(diaSelecionado[2]), descriptografar(diaSelecionado[3]), descriptografar(diaSelecionado[4]), descriptografar(diaSelecionado[5])
     diaSelecionado[5] = diaSelecionado[5].split(",")
-
     classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
 ## EXCLUIR DIA
@@ -304,22 +309,22 @@ def telaExcluir(Id_usuario):
                                          EXCLUIR
 -------------------------------------------------------------------------------------------
     """)
-    tabela,linhas = DBselect(Id_usuario)
+    tabela = DBselect(Id_usuario)
 
-    if linhas == 0:
+    if len(tabela) == 0:
         print("ERRO! Insira alguma data no sistema")
         return
     print("DATAS JÁ INSERIDAS:")
     for x in tabela:
+        x[1] = descriptografar(x[1])
         print("- ",x[1])
     print("(Digite 0 para voltar para o menu)\n")
     print("INSIRA A DATA PARA EXCLUIR (DD/MM/AAAA): ")
     data = input(">")
-
+    if data == "0":
+            return
     dataValida = False
     while dataValida == False:
-        if data == "0":
-            return
         for x in tabela:
             if x[1] == data:
                 dataValida = True
@@ -333,6 +338,8 @@ def telaExcluir(Id_usuario):
             data = input(">")
     apagarTerminal()
     print()
+    data = criptografar(data)
+    #parei a criptografia aqui
     diaSelecionado = DBselect_dia(data, Id_usuario)
     diaSelecionado[5] = diaSelecionado[5].split(",")
 
@@ -392,9 +399,9 @@ def telaClassificar(Id_usuario):
 -------------------------------------------------------------------------------------------
 """)
 
-    tabela,linhas = DBselect(Id_usuario)
+    tabela = DBselect(Id_usuario)
     medias = [0, 0, 0, 0]
-    if linhas == 0:
+    if len(tabela) == 0:
         print("Nenhum dia para classificar")
         return
     
@@ -523,19 +530,14 @@ def telaLogin():
             nome = input("INSIRA O SEU NOME: ")
             senha = input("INSIRA SUA SENHA: ")
             try:
+                nome,senha = criptografar(nome),criptografar(senha)
                 usuario = DBselect_usuario(nome,senha)
                 Id_usuario = usuario[0]
                 print("Você fez log-in na sua conta!")
                 input("                                      <APERTE ENTER>")
                 login = True
             except:
-                tabela = DBselect_tabela_usuarios()
-                for x in tabela:
-                    if nome != x[1]:
-                        print("Nome não cadastrado")
-                        break
-                else:
-                    print("ERRO! O usuário e/ou a senha estão incorretos")
+                print("ERRO! O usuário e/ou a senha estão incorretos")
                 input("                                      <APERTE ENTER>")
                 apagarTerminal()
         else:
@@ -544,12 +546,14 @@ def telaLogin():
             senha = input("INSIRA SUA SENHA: ")
             try:
                 tabela = DBselect_tabela_usuarios()
+                nome = criptografar(nome)
                 Invalido = False
                 for x in tabela:
                     if nome == x[1]:
                         print("ERRO! Nome de usuário já cadastrado")
                         Invalido = True
                 if Invalido == False:
+                    senha = criptografar(senha)
                     DBinsert_usuario(nome,senha)
                     print("Usuário cadastrado com sucesso!")
                     input("                                      <APERTE ENTER>")

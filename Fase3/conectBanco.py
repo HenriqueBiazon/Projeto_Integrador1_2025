@@ -30,10 +30,9 @@ def DBselect(Id_usuario): #SELECIONA A TABELA INTEIRA
     cursor.execute(sql)
     myresult = cursor.fetchall()
     #myresult = myresult.pop(0)
-    linhas = (cursor.rowcount)
     # X = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meio_transporte)
 
-    return myresult,linhas
+    return myresult
 DBconnect()
 
 def DBselect_dia(data, Id_usuario): #SELECIONA A LINHA EM UMA DATA ESPECÍFICA DE UM USUARIO ESPECÍFICO
