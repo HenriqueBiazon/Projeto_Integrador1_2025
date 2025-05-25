@@ -3,9 +3,9 @@ SHOW DATABASES;
 CREATE TABLE dados_sustentabilidade (
     Id_dado INT PRIMARY KEY AUTO_INCREMENT, 
     data VARCHAR(20), 
-    consumo_agua INT, 
-    consumo_energia INT, 
-    porcentagem_reciclagem INT, 
+    consumo_agua VARCHAR(20), 
+    consumo_energia VARCHAR(20), 
+    porcentagem_reciclagem VARCHAR(20), 
     meios_transporte VARCHAR(50)
 );
 SELECT * FROM dados_sustentabilidade;
