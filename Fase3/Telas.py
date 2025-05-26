@@ -13,7 +13,7 @@ from criptografia import criptografar,descriptografar
 
 ## APAGAR TERMINAL
 def apagarTerminal():
-    os.system("cls")
+    os.system("cls" if os.name == "nt" else "clear")
 
 ## MENU
 
