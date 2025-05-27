@@ -113,8 +113,6 @@ def telaInserir(Id_usuario):
         if len(tabela) == 0:
             dataInvalida = False
         for x in tabela:
-            x = list(x)
-            x[1] = descriptografar(x[1])
             if x[1] == data:
                 dataInvalida = True
                 break
@@ -124,8 +122,6 @@ def telaInserir(Id_usuario):
             print("\nERRO! Digite uma data válida:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
-                x = list(x)
-                x[1] = descriptografar(x[1])
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
@@ -159,9 +155,7 @@ def telaInserir(Id_usuario):
             print("ERRO! O dado inserido está inválido")
         print()
     string_meios_transporte = ','.join(meios_transporte)
-
     classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
-    data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = criptografar(data), criptografar(consumo_agua), criptografar(consumo_energia), criptografar(porcentagem_reciclagem), criptografar(string_meios_transporte)
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte, Id_usuario)
 
 ## ALTERAR DIA
@@ -183,8 +177,6 @@ def telaAlterar(Id_usuario):
     
     print("DATAS JÁ INSERIDAS:")
     for x in tabela:
-        x = list(x)
-        x[1] = descriptografar(x[1])
         print("-",x[1])
     print("(Digite 0 para voltar para o menu)\n")
     print("INSIRA A DATA PARA ALTERAR (DD/MM/AAAA): ")
@@ -195,8 +187,6 @@ def telaAlterar(Id_usuario):
         if data == "0":
             return
         for x in tabela:
-            x = list(x)
-            x[1] = descriptografar(x[1])
             if x[1] == data:
                 dataInvalida = False
                 break
@@ -204,15 +194,11 @@ def telaAlterar(Id_usuario):
             print("\nERRO! Digite uma data já inserida no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
-                x = list(x)
-                x[1] = descriptografar(x[1])
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
     print()
-    data = criptografar(data)
     diaSelecionado = DBselect_dia(data,Id_usuario)
-    diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5] = descriptografar(diaSelecionado[1]), descriptografar(diaSelecionado[2]), descriptografar(diaSelecionado[3]), descriptografar(diaSelecionado[4]), descriptografar(diaSelecionado[5])
     diaSelecionado[5] = diaSelecionado[5].split(",")
     
     classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
@@ -253,7 +239,6 @@ def telaAlterar(Id_usuario):
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ÁGUA (L):")
         consumo_agua = float(input("> "))
-        consumo_agua = criptografar(consumo_agua)
         DBalter_dia(data, "consumo_agua", consumo_agua, Id_usuario)
 
         print("\nCONSUMO DE ÁGUA ALTERADO COM SUCESSO!")
@@ -263,7 +248,6 @@ def telaAlterar(Id_usuario):
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ENERGIA (KwH):")
         consumo_energia = float(input("> "))
-        consumo_energia = criptografar(consumo_energia)
         DBalter_dia(data, "consumo_energia", consumo_energia, Id_usuario)
 
         print("\nCONSUMO DE ENERGIA ALTERADO COM SUCESSO!")
@@ -273,7 +257,6 @@ def telaAlterar(Id_usuario):
 
         print("\nINSIRA SUA PORCENTAGEM ALTERADA DE RECICLAGEM (%):")
         porcentagem_reciclagem = int(input("> "))
-        porcentagem_reciclagem = criptografar(porcentagem_reciclagem)
         DBalter_dia(data, "porcentagem_reciclagem", porcentagem_reciclagem, Id_usuario)
 
         print("\nPORCENTAGEM DE RECICLAGEM ALTERADA COM SUCESSO!")
@@ -292,7 +275,6 @@ def telaAlterar(Id_usuario):
         meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil): ').upper()
 
         string_meios_transporte = ','.join(meios_transporte)
-        string_meios_transporte = criptografar(string_meios_transporte)
         DBalter_dia(data, "meios_transporte", string_meios_transporte, Id_usuario)
 
         print("\nMEIOS DE TRANSPORTE UTILIZADOS ALTERADOS COM SUCESSO!")
@@ -302,7 +284,6 @@ def telaAlterar(Id_usuario):
         return
 
     diaSelecionado = DBselect_dia(data, Id_usuario)
-    diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5] = descriptografar(diaSelecionado[1]), descriptografar(diaSelecionado[2]), descriptografar(diaSelecionado[3]), descriptografar(diaSelecionado[4]), descriptografar(diaSelecionado[5])
     diaSelecionado[5] = diaSelecionado[5].split(",")
     classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
@@ -324,8 +305,6 @@ def telaExcluir(Id_usuario):
         return
     print("DATAS JÁ INSERIDAS:")
     for x in tabela:
-        x = list(x)
-        x[1] = descriptografar(x[1])
         print("- ",x[1])
     print("(Digite 0 para voltar para o menu)\n")
     print("INSIRA A DATA PARA EXCLUIR (DD/MM/AAAA): ")
@@ -336,8 +315,6 @@ def telaExcluir(Id_usuario):
         if data == "0":
             return
         for x in tabela:
-            x = list(x)
-            x[1] = descriptografar(x[1])
             if x[1] == data:
                 dataInvalida = True
                 break
@@ -345,18 +322,12 @@ def telaExcluir(Id_usuario):
             print("\nERRO! Digite uma data já existente no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
-                x = list(x)
-                x[1] = descriptografar(x[1])
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
     print()
-    data = criptografar(data)
     diaSelecionado = DBselect_dia(data, Id_usuario)
-
-    diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5] = descriptografar(diaSelecionado[1]), descriptografar(diaSelecionado[2]), descriptografar(diaSelecionado[3]), descriptografar(diaSelecionado[4]), descriptografar(diaSelecionado[5])
     diaSelecionado[5] = diaSelecionado[5].split(",")
-
     classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
     print()
@@ -431,8 +402,6 @@ def telaClassificar(Id_usuario):
 
         print("DATAS JÁ INSERIDAS:")
         for x in tabela:
-            x = list(x)
-            x[1] = descriptografar(x[1])
             print("-",x[1])
         print("(Digite 0 para voltar para o menu)\n")
         print("INSIRA O DIA PARA CLASSIFICAR (DD/MM/AAAA): ")
@@ -442,8 +411,6 @@ def telaClassificar(Id_usuario):
             if data == "0":
                 return
             for x in tabela:
-                x = list(x)
-                x[1] = descriptografar(x[1])
                 if x[1] == data:
                     dataValida = True
                     break
@@ -451,33 +418,29 @@ def telaClassificar(Id_usuario):
                 print("\nERRO! Digite uma data já inserida no sistema:\n")
                 print("DATAS JÁ INSERIDAS:")
                 for x in tabela:
-                    x = list(x)
-                    x[1] = descriptografar(x[1])
                     print("-",x[1])
                 print("(OU digite 0 para voltar para o menu)")
                 data = input(">")
-        data = criptografar(data)
         diaSelecionado = DBselect_dia(data,Id_usuario)
-        diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5] = descriptografar(diaSelecionado[1]), descriptografar(diaSelecionado[2]), descriptografar(diaSelecionado[3]), descriptografar(diaSelecionado[4]), descriptografar(diaSelecionado[5])
         diaSelecionado[5] = diaSelecionado[5].split(",")
         classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
     elif opcaoClassificar == 2:
         for x in tabela:
-            data = descriptografar(x[1])
-            consumo_agua = descriptografar(x[2])
-            consumo_energia = descriptografar(x[3])
-            porcentagem_reciclagem = descriptografar(x[4])
-            string_meio_transporte = descriptografar(x[5])
+            data = x[1]
+            consumo_agua = x[2]
+            consumo_energia = x[3]
+            porcentagem_reciclagem = x[4]
+            string_meio_transporte = x[5]
             meios_transporte = string_meio_transporte.split(",")
             classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
     else:
         for x in tabela:
-            data = descriptografar(x[1])
-            consumo_agua = descriptografar(x[2])
-            consumo_energia = descriptografar(x[3])
-            porcentagem_reciclagem = descriptografar(x[4])
-            string_meio_transporte = descriptografar(x[5])
+            data = x[1]
+            consumo_agua = x[2]
+            consumo_energia = x[3]
+            porcentagem_reciclagem = x[4]
+            string_meio_transporte = x[5]
             meios_transporte = string_meio_transporte.split(",")
             mediaDia = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
             medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
