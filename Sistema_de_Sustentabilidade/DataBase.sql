@@ -7,9 +7,6 @@ CREATE TABLE dados_sustentabilidade (
     porcentagem_reciclagem INT, 
     meios_transporte VARCHAR(50)
 );
---CREATE TABLE usuarios (Id_usuario INT PRIMARY KEY AUTO_INCREMENT,nome VARCHAR(50) UNIQUE,senha VARCHAR(30));
---ALTER TABLE dados_sustentabilidade ADD COLUMN Id_usuario INT;
---ALTER TABLE dados_sustentabilidade ADD FOREIGN KEY (Id_usuario) REFERENCES usuarios(Id_usuario);
 CREATE TABLE classificacao_sustentabilidade (
     Id_classificacao INT PRIMARY KEY AUTO_INCREMENT, 
     data VARCHAR(20) UNIQUE, 
