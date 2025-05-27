@@ -552,7 +552,6 @@ def telaLogin():
             nome = input("INSIRA O SEU NOME: ")
             senha = input("INSIRA SUA SENHA: ")
             try:
-                nome,senha = criptografar(nome),criptografar(senha)
                 usuario = DBselect_usuario(nome,senha)
                 Id_usuario = usuario[0]
                 print("Você fez log-in na sua conta!")
@@ -567,14 +566,12 @@ def telaLogin():
             senha = input("INSIRA SUA SENHA: ")
             try:
                 tabela = DBselect_tabela_usuarios()
-                nome = criptografar(nome)
                 Invalido = False
                 for x in tabela:
                     if nome == x[1]:
                         print("ERRO! Nome de usuário já cadastrado")
                         Invalido = True
                 if Invalido == False:
-                    senha = criptografar(senha)
                     DBinsert_usuario(nome,senha)
                     print("Usuário cadastrado com sucesso!")
                     input("                                      <APERTE ENTER>")

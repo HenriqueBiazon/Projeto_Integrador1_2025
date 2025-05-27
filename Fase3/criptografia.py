@@ -1,7 +1,7 @@
 import sympy
 from sympy import Matrix
 
-ALFABETO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789, /."
+ALFABETO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 CHAVE = Matrix([[3, 2], [1, 1]])
 
 def texto_para_numeros(texto):
@@ -10,7 +10,7 @@ def texto_para_numeros(texto):
     return [ALFABETO.index(c) for c in texto if c in ALFABETO] #Cria uma lista das letrar transformadas em números
 
 def numeros_para_texto(numeros):
-    return ''.join([ALFABETO[n % 40] for n in numeros]) #40 porque é o número de caracteres que tem na variável ALFABETO
+    return ''.join([ALFABETO[n % 26] for n in numeros]) #26 porque é o número de caracteres que tem na variável ALFABETO
 
 def criptografar(texto):
     numeros = texto_para_numeros(texto)
@@ -20,17 +20,17 @@ def criptografar(texto):
     for i in range(0, len(numeros), 2):
         bloco = Matrix([[numeros[i]], [numeros[i+1]]])
         matrizCripto = CHAVE * bloco
-        resultado.extend([int(x) % 40 for x in matrizCripto])
+        resultado.extend([int(x) % 26 for x in matrizCripto])
     return numeros_para_texto(resultado)
 
 def descriptografar(texto):
     numeros = texto_para_numeros(texto)
-    chaveInversa = CHAVE.inv_mod(40)
+    chaveInversa = CHAVE.inv_mod(26)
     resultado = []
     for i in range(0, len(numeros), 2):
         bloco = Matrix([[numeros[i]], [numeros[i+1]]])
         matrizDescripto = chaveInversa * bloco
-        resultado.extend([int(x) % 40 for x in matrizDescripto])
+        resultado.extend([int(x) % 26 for x in matrizDescripto])
     descriptografado = numeros_para_texto(resultado)
     # Remove o último caractere se for 'X', que foi colocado na função criptografar se a quantidade de letras do texto for impar
     if descriptografado.endswith("X"):
