@@ -49,12 +49,15 @@ def DBalter_dia(data,paraAlterar,alteracao): #ALTERA OS DADOS DE UM DIA
     values = (alteracao, data)
     cursor.execute(sql,values)
     MYDB.commit()
-    
-def DBdelete_dia(data): #DELETA 
+
+def DBdelete(data): #DELETA A CLASSIFICAÇÃO E OS DADOS
     cursor = MYDB.cursor()
 
-    sql = f'DELETE FROM dados_sustentabilidade WHERE data = "{data}"'
+    # First, delete from the referencing table to avoid foreign key constraint errors
+    sql = f'DELETE FROM classificacao_sustentabilidade WHERE data = "{data}"'
+    cursor.execute(sql)
 
+    sql = f'DELETE FROM dados_sustentabilidade WHERE data = "{data}"'
     cursor.execute(sql)
     MYDB.commit()
 
@@ -98,12 +101,4 @@ def DBalter_classificacao(data,classificacao_agua, classificacao_energia,classif
     sql = f"UPDATE classificacao_sustentabilidade SET classificacao_transporte = %s WHERE data = %s"
     values = (classificacao_transporte, data)
     cursor.execute(sql,values)
-    MYDB.commit()
-
-def DBdelete_classificacao(data): #DELETA A CLASSIFICACAO DE UM DIA
-    cursor = MYDB.cursor()
-
-    sql = f'DELETE FROM classificacao_sustentabilidade WHERE data = "{data}"'
-
-    cursor.execute(sql)
     MYDB.commit()

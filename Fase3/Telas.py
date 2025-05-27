@@ -317,9 +317,9 @@ def telaExcluir():
             return
         for x in tabela:
             if x[1] == data:
-                dataInvalida = True
+                dataInvalida = False
                 break
-        if not dataInvalida:
+        if dataInvalida:
             print("\nERRO! Digite uma data já existente no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
@@ -368,12 +368,10 @@ def telaExcluir():
         opcaoExcluir = int(input(">"))
     print()
     if opcaoExcluir == 1:
-        DBdelete_dia(data)
-        DBdelete_classificacao(data)
+        DBdelete(data)
         print(f"DIA EXCLUÍDO COM SUCESSO\n")
     else:
         print("VOLTANDO PARA A TELA DE MENU\n")
-    input("                                    <APERTE ENTER>")
 
 ## MEDIAS
 
@@ -383,7 +381,7 @@ def caucularMediaDia(data):
     classificacao_energia = descriptografar(classificacao_energiaCript)
     classificacao_reciclagem = descriptografar(classificacao_reciclagemCript)
     classificacao_transporte = descriptografar(classificacao_transporteCript)
-    medias = []
+    medias = [0,0,0,0]
     if classificacao_agua == "ALTA":
         medias[0] += 1
     elif classificacao_agua == "MODERADA":
