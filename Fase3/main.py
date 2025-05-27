@@ -1,40 +1,35 @@
-#Fase 2 - Implementação do banco de dados
+##Sistema de monitoramento de sustentabilidade pessoal diária
 
 from Telas import *
 
-#Fase 1 - Sistema de clssificação de sutentabilidade pessoal diário
-
-#Fase 3 - Tela de log-in:
 apagarTerminal()
-print("\n\n          BEM VINDO AO SISTEMA DE MONITORAMENTO DE SUSTENTABILIDADE PESSOAL!")
+print("\n\n      BEM VINDO AO SISTEMA DE MONITORAMENTO DE SUSTENTABILIDADE PESSOAL DIÁRIA!")
 input("                                    <APERTE ENTER>")
 apagarTerminal()
-Id_usuario = telaLogin()
 
-apagarTerminal()
 #Tela de início
 sair = False
 while sair == False:
 
-    opcaoMenu = telaMenu() #Printa o menu e pega a opção escolhida
+    opcaoMenu = telaMenu() #Menu
 
     apagarTerminal()
 
     if opcaoMenu == 1:
 
-        telaInserir(Id_usuario) 
+        telaInserir()
 
     elif opcaoMenu == 2:
 
-        telaAlterar(Id_usuario)
+        telaAlterar()
 
     elif opcaoMenu == 3:
 
-        telaExcluir(Id_usuario)
+        telaExcluir()
 
     elif opcaoMenu == 4:
 
-        telaClassificar(Id_usuario)
+        telaClassificar()
 
     elif opcaoMenu == 5:
 

@@ -12,34 +12,33 @@ def DBconnect():
     )
     return mydb
 
-def DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte, Id_usuario): #INSERE OS DADOS EM UMA NOVA LINHA DA TABELA
+##Tabela dados_sustentabilidade:
+
+def DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte): #INSERE OS DADOS EM UMA NOVA LINHA DA TABELA
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = 'INSERT INTO dados_sustentabilidade (data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte,Id_usuario) VALUES (%s,%s,%s,%s,%s,%s)'
-    values = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte, Id_usuario)
+    sql = 'INSERT INTO dados_sustentabilidade (data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte) VALUES (%s,%s,%s,%s,%s)'
+    values = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
 
     cursor.execute(sql,values)
     mydb.commit() 
 
-def DBselect(Id_usuario): #SELECIONA A TABELA INTEIRA
+def DBselect(): #SELECIONA A TABELA INTEIRA
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = f'SELECT * FROM dados_sustentabilidade WHERE Id_usuario = "{Id_usuario}"'
+    sql = f'SELECT * FROM dados_sustentabilidade'
     cursor.execute(sql)
     myresult = cursor.fetchall()
-    #myresult = myresult.pop(0)
-    # X = (data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meio_transporte)
-
     return myresult
 DBconnect()
 
-def DBselect_dia(data, Id_usuario): #SELECIONA A LINHA EM UMA DATA ESPECÍFICA DE UM USUARIO ESPECÍFICO
+def DBselect_dia(data): #SELECIONA A LINHA EM UMA DATA ESPECÍFICA
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = f'SELECT * FROM dados_sustentabilidade WHERE data = "{data}" AND Id_usuario = "{Id_usuario}"'
+    sql = f'SELECT * FROM dados_sustentabilidade WHERE data = "{data}"'
     cursor.execute(sql)
 
     myresult = cursor.fetchall()
@@ -47,52 +46,41 @@ def DBselect_dia(data, Id_usuario): #SELECIONA A LINHA EM UMA DATA ESPECÍFICA D
 
     return list(myresult)
 
-def DBalter_dia(data,paraAlterar,alteracao, Id_usuario):
+def DBalter_dia(data,paraAlterar,alteracao):
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = f"UPDATE dados_sustentabilidade SET {paraAlterar} = %s WHERE data = %s AND Id_usuario = %s"
-    values = (alteracao, data, Id_usuario)
+    sql = f"UPDATE dados_sustentabilidade SET {paraAlterar} = %s WHERE data = %s"
+    values = (alteracao, data)
     cursor.execute(sql,values)
     mydb.commit()
     
-def DBdelete_dia(data, Id_usuario):
+def DBdelete_dia(data):
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = f'DELETE FROM dados_sustentabilidade WHERE data = "{data}" AND Id_usuario = "{Id_usuario}"'
+    sql = f'DELETE FROM dados_sustentabilidade WHERE data = "{data}"'
 
     cursor.execute(sql)
     mydb.commit()
 
-def DBselect_usuario(nome, senha):
+##Tabela classificacao_sustentabilidade:
+
+def DBinsert_classificacao(data,classificacao_agua, classificacao_energia,classificacao_reciclagem,classificacao_transporte): #INSERE OS DADOS EM UMA NOVA LINHA DA TABELA
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = f'SELECT * FROM usuarios WHERE nome = "{nome}" AND senha = "{senha}"'
-    cursor.execute(sql)
-
-    myresult = cursor.fetchall()
-    myresult = myresult.pop(0)
-
-    return myresult
-
-def DBinsert_usuario(nome, senha): #INSERE O USUARIO EM UMA NOVA LINHA DA TABELA
-    mydb = DBconnect()
-    cursor = mydb.cursor()
-
-    sql = 'INSERT INTO usuarios (nome, senha) VALUES (%s,%s)'
-    values = (nome, senha)
+    sql = 'INSERT INTO classificacao_sustentabilidade (data,classificacao_agua, classificacao_energia,classificacao_reciclagem,classificacao_transporte) VALUES (%s,%s,%s,%s,%s)'
+    values = (data,classificacao_agua, classificacao_energia,classificacao_reciclagem,classificacao_transporte)
 
     cursor.execute(sql,values)
-    mydb.commit()
+    mydb.commit() 
 
-def DBselect_tabela_usuarios(): #SELECIONA A TABELA INTEIRA
+def DBalter_classificacao(data,paraAlterar,alteracao):
     mydb = DBconnect()
     cursor = mydb.cursor()
 
-    sql = f'SELECT * FROM usuarios'
-    cursor.execute(sql)
-    myresult = cursor.fetchall()
-
-    return myresult
+    sql = f"UPDATE dados_sustentabilidade SET {paraAlterar} = %s WHERE data = %s"
+    values = (alteracao, data)
+    cursor.execute(sql,values)
+    mydb.commit()

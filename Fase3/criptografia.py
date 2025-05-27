@@ -5,12 +5,11 @@ ALFABETO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 CHAVE = Matrix([[3, 2], [1, 1]])
 
 def texto_para_numeros(texto):
-    texto = str(texto)
     texto = texto.upper()
-    return [ALFABETO.index(c) for c in texto if c in ALFABETO] #Cria uma lista das letrar transformadas em números
+    return [ALFABETO.index(c) for c in texto if c in ALFABETO] #Cria uma lista das letras transformadas em números
 
 def numeros_para_texto(numeros):
-    return ''.join([ALFABETO[n % 26] for n in numeros]) #26 porque é o número de caracteres que tem na variável ALFABETO
+    return ''.join([ALFABETO[n % 26] for n in numeros])
 
 def criptografar(texto):
     numeros = texto_para_numeros(texto)
@@ -35,7 +34,5 @@ def descriptografar(texto):
     # Remove o último caractere se for 'X', que foi colocado na função criptografar se a quantidade de letras do texto for impar
     if descriptografado.endswith("X"):
         descriptografado = descriptografado[:-1]
-    try:
-        return float(descriptografado)
-    except:
-        return descriptografado
+    return descriptografado
+    
