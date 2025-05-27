@@ -2,9 +2,9 @@
 CREATE TABLE dados_sustentabilidade (
     Id_dado INT PRIMARY KEY AUTO_INCREMENT, 
     data VARCHAR(20) UNIQUE, 
-    consumo_agua VARCHAR(20), 
-    consumo_energia VARCHAR(20), 
-    porcentagem_reciclagem VARCHAR(20), 
+    consumo_agua INT, 
+    consumo_energia FLOAT, 
+    porcentagem_reciclagem INT, 
     meios_transporte VARCHAR(50)
 );
 --CREATE TABLE usuarios (Id_usuario INT PRIMARY KEY AUTO_INCREMENT,nome VARCHAR(50) UNIQUE,senha VARCHAR(30));
@@ -13,10 +13,10 @@ CREATE TABLE dados_sustentabilidade (
 CREATE TABLE classificacao_sustentabilidade (
     Id_classificacao INT PRIMARY KEY AUTO_INCREMENT, 
     data VARCHAR(20) UNIQUE, 
-    classificacao_agua VARCHAR(20), 
-    classificacao_energia VARCHAR(20), 
-    classificacao_reciclagem VARCHAR(20), 
-    classificacao_transporte VARCHAR(50)
+    classificacao_agua VARCHAR(25), 
+    classificacao_energia VARCHAR(25), 
+    classificacao_reciclagem VARCHAR(25), 
+    classificacao_transporte VARCHAR(25)
 );
 ALTER TABLE classificacao_sustentabilidade ADD FOREIGN KEY (data) REFERENCES dados_sustentabilidade(data);
 SHOW TABLES;

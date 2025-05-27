@@ -30,63 +30,64 @@ def telaMenu():
 
 ## CLASSIFICANDO
 
-def classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte,):
+def classificacaoDia(data):
+    consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = DBselect_dia(data)[2:6]
+    meios_transporte = string_meios_transporte.split(",")
+
+    classificacao = ["","","",""]
+
+    if consumo_agua < 150:
+        classificacao[0] = 'Alta'
+    elif 150 <= consumo_agua <= 200:
+        classificacao[0] = 'Moderada'
+    else:
+        classificacao[0] = 'Baixa'
+
+    if consumo_energia < 5:
+        classificacao[1] = 'Alta'
+    elif 5 <= consumo_energia <= 10:
+        classificacao[1] = 'Moderada'
+    else:
+        classificacao[1] = 'Baixa'
+
+    if porcentagem_reciclagem > 50:
+        classificacao[2] = 'Alta'
+    elif 20 <= porcentagem_reciclagem <= 50:
+        classificacao[2] = 'Moderada'
+    else:
+        classificacao[2] = 'Baixa'
+
+    if ((meios_transporte[1] == 'S') or (meios_transporte[0] == 'S') or (meios_transporte[4] == 'S') or (meios_transporte[2] == 's')) and ((meios_transporte[5] == 'S') or (meios_transporte[3] == 'S')):
+        classificacao[3] = 'Moderada '
+    elif (meios_transporte[5] == 'S') or (meios_transporte[3] == 'S'):
+        classificacao[3] = 'Baixa'
+    else:
+        classificacao[3] = 'Alta'
+    classificacao[0] = criptografar(classificacao[0])
+    classificacao[1] = criptografar(classificacao[1])
+    classificacao[2] = criptografar(classificacao[2])
+    classificacao[3] = criptografar(classificacao[3])
+    return classificacao
+
+def mostrarClassificacao(data):
+    classificacao_aguaCript, classificacao_energiaCript, classificacao_reciclagemCript, classificacao_transporteCript = DBselect_classificacao_dia(data)[2:6]
+    classificacao_agua = descriptografar(classificacao_aguaCript)
+    classificacao_energia = descriptografar(classificacao_energiaCript)
+    classificacao_reciclagem = descriptografar(classificacao_reciclagemCript)
+    classificacao_transporte = descriptografar(classificacao_transporteCript)
+
     print()
     print(f"                    CLASSIFICAÇÃO DA SUSTENTABILIDADE DO DIA {data}:                     ")
     print()
     print(f"CLASSIFICAÇÃO DE SUSTENTABILIDADE DE ÁGUA: ", end="")
-
-    classificacao = []
-    classificacao[0] = data
-
-    if consumo_agua < 150:
-        print('Alta sustentabilidade')
-        classificacao[1] = 'Alta sustentabilidade'
-    elif 150 <= consumo_agua <= 200:
-        print('Moderada sustentabilidade.')
-        classificacao[1] = 'Moderada sustentabilidade'
-    else:
-        print('Baixa sustentabilidade.')
-        classificacao[1] = 'Baixa sustentabilidade'
-
+    print(f"{classificacao_agua} SUSTENTABILIDADE.")
     print(f"CLASSIFICAÇÃO DE SUSTENTABILIDADE DE ENERGIA: ", end="")
-
-    if consumo_energia < 5:
-        print('Alta sustentabilidade.')
-        classificacao[2] = 'Alta sustentabilidade'
-    elif 5 <= consumo_energia <= 10:
-        print('Moderada sustentabilidade.')
-        classificacao[2] = 'Moderada sustentabilidade'
-    else:
-        print('Baixa sustentabilidade.')
-        classificacao[2] = 'Baixa sustentabilidade'
-
+    print(f"{classificacao_energia} SUSTENTABILIDADE.")
     print(f"CLASSIFICAÇÃO DE SUSTENTABILIDADE DE RECICLAGEM: ", end="")
-
-    if porcentagem_reciclagem > 50:
-        print('Alta sustentabilidade.')
-        classificacao[3] = 'Alta sustentabilidade'
-    elif 20 <= porcentagem_reciclagem <= 50:
-        print('Moderada sustentabilidade.')
-        classificacao[3] = 'Moderada sustentabilidade'
-    else:
-        print('Baixa sustentabilidade.')
-        classificacao[3] = 'Baixa sustentabilidade'
-
+    print(f"{classificacao_reciclagem} SUSTENTABILIDADE.")
     print(f"CLASSIFICAÇÃO DE SUSTENTABILIDADE DE MEIO DE TRANSPORTE: ", end="")
-
-    if ((meios_transporte[1] == 'S') or (meios_transporte[0] == 'S') or (meios_transporte[4] == 'S') or (meios_transporte[2] == 's')) and ((meios_transporte[5] == 'S') or (meios_transporte[3] == 'S')):
-        print('Moderada sustentabilidade.')
-        classificacao[4] = 'Moderada sustentabilidade'
-    elif (meios_transporte[5] == 'S') or (meios_transporte[3] == 'S'):
-        print('Baixa sustentabilidade.')
-        classificacao[4] = 'Baixa sustentabilidade'
-    else:
-        print('Alta sustentabilidade.')
-        classificacao[4] = 'Alta sustentabilidade'
-    #Id_dado = DBselect_dia()[0]
-    return classificacao
-
+    print(f"{classificacao_transporte} SUSTENTABILIDADE.")
+    print()
 
 ## INSERIR DIA
 
@@ -154,9 +155,10 @@ def telaInserir():
     string_meios_transporte = ','.join(meios_transporte)
     DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte)
     #Inserir classificacao na tabela
-    data,classificacao_agua, classificacao_energia,classificacao_reciclagem,classificacao_transporte = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)[0:5]
-    DBinsert_classificacao(data,classificacao_agua, classificacao_energia,classificacao_reciclagem,classificacao_transporte)
-    
+    classificacao_aguaCript, classificacao_energiaCript,classificacao_reciclagemCript,classificacao_transporteCript = classificacaoDia(data)[0:4]
+    DBinsert_classificacao(data,classificacao_aguaCript, classificacao_energiaCript,classificacao_reciclagemCript,classificacao_transporteCript)
+    #Mostra a classificação do dia
+    mostrarClassificacao(data)
 
 ## ALTERAR DIA
 
@@ -168,7 +170,7 @@ def telaAlterar():
           
                                          ALTERAR
 -------------------------------------------------------------------------------------------
-    """)
+""")
     tabela = DBselect()
 
     if len(tabela) == 0:
@@ -197,36 +199,35 @@ def telaAlterar():
                 print("-",x[1])
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
-    print()
-    diaSelecionado = DBselect_dia(data)
-    diaSelecionado[5] = diaSelecionado[5].split(",")
-    
-    classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
 
-    print()
+    mostrarClassificacao(data)
+
+    consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = DBselect_dia(data)[2:6]
+    meios_transporte = string_meios_transporte.split(",")
+
     print("-----------------------------------VALORES CADASTRADOS:------------------------------------")
     print()
-    print(f"CONSUMO DE ÁGUA: {diaSelecionado[2]}")
-    print(f"CONSUMO DE ENERGIA: {diaSelecionado[3]}")
-    print(f"PORCENTAGEM DE RECICLAGEM: {diaSelecionado[4]}%")
+    print(f"CONSUMO DE ÁGUA: {consumo_agua}")
+    print(f"CONSUMO DE ENERGIA: {consumo_energia}")
+    print(f"PORCENTAGEM DE RECICLAGEM: {porcentagem_reciclagem}%")
     print()
     print("MEIOS DE TRANSPORTE UTILIZADOS:")
-    print(f"TRANSPORTE PÚBLICO {diaSelecionado[5][0]}")
-    print(f"BICICLETA: {diaSelecionado[5][1]}")
-    print(f"CAMINHADA: {diaSelecionado[5][2]}")
-    print(f"CARRO (combustível fóssil): {diaSelecionado[5][3]}")
-    print(f"CARRO ELÉTRICO: {diaSelecionado[5][4]}")
-    print(f"CARONA COMPARTILHADA (combustível fóssil): {diaSelecionado[5][5]}")
+    print(f"TRANSPORTE PÚBLICO {meios_transporte[0]}")
+    print(f"BICICLETA: {meios_transporte[1]}")
+    print(f"CAMINHADA: {meios_transporte[2]}")
+    print(f"CARRO (combustível fóssil): {meios_transporte[3]}")
+    print(f"CARRO ELÉTRICO: {meios_transporte[4]}")
+    print(f"CARONA COMPARTILHADA (combustível fóssil): {meios_transporte[5]}")
     print()
     input("                                    <APERTE ENTER>")
-    print()
-    print("-------------------------------------------------------------------------------------------")
-    print()
-    print("                             QUAL DADO VOCÊ DESEJA ALTERAR?")
-    print("""-------------------------------------------------------------------------------------------
+    print("""
+-------------------------------------------------------------------------------------------
+                               QUAL DADO VOCÊ DESEJA ALTERAR?
+-------------------------------------------------------------------------------------------
 |    1 - ÁGUA     |   2 - ENERGIA   | 3 - RECICLAGEM | 4 - TRANSPORTE  |    5 - NENHUM    |
--------------------------------------------------------------------------------------------""")
-    
+-------------------------------------------------------------------------------------------
+""")
+
     opcaoAlterar = int(input(">"))
     while 1 > opcaoAlterar or opcaoAlterar > 5:
         print()
@@ -235,7 +236,7 @@ def telaAlterar():
     print()
 
     if opcaoAlterar == 1:
-        print(f"ALTERANDO O CONSUMO DE ÁGUA DO DIA {diaSelecionado[1]}")
+        print(f"ALTERANDO O CONSUMO DE ÁGUA DO DIA {data}")
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ÁGUA (L):")
         consumo_agua = float(input("> "))
@@ -244,7 +245,7 @@ def telaAlterar():
         print("\nCONSUMO DE ÁGUA ALTERADO COM SUCESSO!")
 
     elif opcaoAlterar == 2:
-        print(f"ALTERANDO O CONSUMO DE ENERGIA DO DIA {diaSelecionado[1]}")
+        print(f"ALTERANDO O CONSUMO DE ENERGIA DO DIA {data}")
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ENERGIA (KwH):")
         consumo_energia = float(input("> "))
@@ -253,7 +254,7 @@ def telaAlterar():
         print("\nCONSUMO DE ENERGIA ALTERADO COM SUCESSO!")
 
     elif opcaoAlterar == 3:
-        print(f"ALTERANDO A PORCENTAGEM DE RECICLAGEM DO DIA {diaSelecionado[1]}")
+        print(f"ALTERANDO A PORCENTAGEM DE RECICLAGEM DO DIA {data}")
 
         print("\nINSIRA SUA PORCENTAGEM ALTERADA DE RECICLAGEM (%):")
         porcentagem_reciclagem = int(input("> "))
@@ -262,7 +263,7 @@ def telaAlterar():
         print("\nPORCENTAGEM DE RECICLAGEM ALTERADA COM SUCESSO!")
 
     elif opcaoAlterar == 4:
-        print(f"ALTERANDO OS MEIOS DE TRANSPORTE UTILIZADOS NO DIA {diaSelecionado[1]}")
+        print(f"ALTERANDO OS MEIOS DE TRANSPORTE UTILIZADOS NO DIA {data}")
 
         print('\nQUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (S/N)')
 
@@ -282,10 +283,10 @@ def telaAlterar():
     else:
         print("NENHUMA ALTERAÇÃO FEITA")
         return
-
-    diaSelecionado = DBselect_dia(data)
-    diaSelecionado[5] = diaSelecionado[5].split(",")
-    classificacaoDia(diaSelecionado[1], diaSelecionado[2], diaSelecionado[3], diaSelecionado[4], diaSelecionado[5])
+    #Alterando as classificações na tabela
+    classificacao_aguaCript, classificacao_energiaCript,classificacao_reciclagemCript,classificacao_transporteCript = classificacaoDia(data)[0:4] #Novas classsificações
+    DBalter_classificacao(data,classificacao_aguaCript, classificacao_energiaCript,classificacao_reciclagemCript,classificacao_transporteCript)
+    mostrarClassificacao(data)
 
 ## EXCLUIR DIA
 
@@ -326,10 +327,11 @@ def telaExcluir():
             print("(OU digite 0 para voltar para o menu)")
             data = input(">")
     print()
-    diaSelecionado = DBselect_dia(data)
-    consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = diaSelecionado[2:6]
+
+    mostrarClassificacao(data)
+
+    consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = DBselect_dia(data)[2:6]
     meios_transporte = string_meios_transporte.split(",")
-    classificacaoDia(consumo_agua, consumo_energia, porcentagem_reciclagem, )
 
     print()
     print("-----------------------------------VALORES CADASTRADOS:------------------------------------")
@@ -339,15 +341,14 @@ def telaExcluir():
     print(f"PORCENTAGEM DE RECICLAGEM: {porcentagem_reciclagem}%")
     print()
     print("MEIOS DE TRANSPORTE UTILIZADOS:")
-    print(f"TRANSPORTE PÚBLICO {diaSelecionado[5][0]}")
-    print(f"BICICLETA: {diaSelecionado[5][1]}")
-    print(f"CAMINHADA: {diaSelecionado[5][2]}")
-    print(f"CARRO (combustível fóssil): {diaSelecionado[5][3]}")
-    print(f"CARRO ELÉTRICO: {diaSelecionado[5][4]}")
-    print(f"CARONA COMPARTILHADA (combustível fóssil): {diaSelecionado[5][5]}")
+    print(f"TRANSPORTE PÚBLICO {meios_transporte[0]}")
+    print(f"BICICLETA: {meios_transporte[1]}")
+    print(f"CAMINHADA: {meios_transporte[2]}")
+    print(f"CARRO (combustível fóssil): {meios_transporte[3]}")
+    print(f"CARRO ELÉTRICO: {meios_transporte[4]}")
+    print(f"CARONA COMPARTILHADA (combustível fóssil): {meios_transporte[5]}")
     print()
     input("                                      <APERTE ENTER>")
-    print()
 
     print(f"""
 -------------------------------------------------------------------------------------------
@@ -368,38 +369,45 @@ def telaExcluir():
     print()
     if opcaoExcluir == 1:
         DBdelete_dia(data)
+        DBdelete_classificacao(data)
         print(f"DIA EXCLUÍDO COM SUCESSO\n")
     else:
         print("VOLTANDO PARA A TELA DE MENU\n")
+    input("                                    <APERTE ENTER>")
 
 ## MEDIAS
 
-def caucularMediaDia(consumo_agua,consumo_energia,porcentagem_reciclagem,meios_transporte):
+def caucularMediaDia(data):
+    classificacao_aguaCript, classificacao_energiaCript, classificacao_reciclagemCript, classificacao_transporteCript = DBselect_classificacao_dia(data)[2:6]
+    classificacao_agua = descriptografar(classificacao_aguaCript)
+    classificacao_energia = descriptografar(classificacao_energiaCript)
+    classificacao_reciclagem = descriptografar(classificacao_reciclagemCript)
+    classificacao_transporte = descriptografar(classificacao_transporteCript)
     medias = []
-    if consumo_agua < 150:
+    if classificacao_agua == "ALTA":
         medias[0] += 1
-    elif 150 <= consumo_agua <= 200:
+    elif classificacao_agua == "MODERADA":
         medias[0] += 0
     else:
         medias[0] -= 1
-    if consumo_energia < 5:
+    if classificacao_energia == "ALTA":
         medias[1] += 1
-    elif 5 <= consumo_energia <= 10:
+    elif classificacao_energia == "MODERADA":
         medias[0] += 0
     else:
         medias[1] -= 1
-    if porcentagem_reciclagem > 50:
+    if classificacao_reciclagem == "ALTA":
         medias[2] += 1
-    elif 20 <= porcentagem_reciclagem <= 50:
+    elif classificacao_reciclagem == "MODERADA":
         medias[0] += 0
     else:
         medias[2] -= 1
-    if ((meios_transporte[1] == 'S') or (meios_transporte[0] == 'S') or (meios_transporte[4] == 'S') or (meios_transporte[2] == 's')) and ((meios_transporte[5] == 'S') or (meios_transporte[3] == 'S')):
-        medias[0] += 0
-    elif (meios_transporte[5] == 'S') or (meios_transporte[3] == 'S'):
-        medias[3] -= 1
+    if classificacao_transporte == "ALTA":
+        medias[0] += 1
+    elif classificacao_transporte == "MODERADA":
+        medias[3] += 0
     else:
-        medias[3] += 1
+        medias[3] -= 1
     return medias
 
 ## CLASSIFICAR
@@ -452,22 +460,14 @@ def telaClassificar():
                     print("-",x[1])
                 print("(OU digite 0 para voltar para o menu)")
                 data = input(">")
-
-        diaSelecionado = DBselect_dia(data)
-        consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = diaSelecionado[2:6]
-        meio_transporte = string_meios_transporte.split(",")
-        classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meio_transporte)
+        mostrarClassificacao(data)
 
     elif opcaoClassificar == 2: #LISTAR TODOS
         for x in tabela:
-            data, consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = x[1:6]
-            meios_transporte = string_meios_transporte.split(",")
-            classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
+            mostrarClassificacao(x[1])
     else: #MÉDIA DA CLASSIFICAÇÃO
         for x in tabela:
-            consumo_agua, consumo_energia, porcentagem_reciclagem, string_meios_transporte = x[2:6]
-            meios_transporte = string_meios_transporte.split(",")
-            mediaDia = caucularMediaDia(consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
+            mediaDia = caucularMediaDia(x[1])
             medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
         print()
         print("-------------------------------------------------------------------------------------------")
@@ -477,35 +477,35 @@ def telaClassificar():
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ÁGUA: ", end="")
 
         if medias[0] == len(tabela):
-            print('Alta sustentabilidade')
+            print('ALTA SUSTENTABILIDADE.')
         elif medias[0] == -len(tabela):
-            print('Baixa sustentabilidade.')
+            print('BAIXA SUSTENTABILIDADE.')
         else:
-            print('Moderada sustentabilidade.')
+            print('MODERADA SUSTENTABILIDADE.')
 
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE ENERGIA: ", end="")
 
         if medias[1] == len(tabela):
-            print('Alta sustentabilidade')
+            print('ALTA SUSTENTABILIDADE.')
         elif medias[1] == -len(tabela):
-            print('Baixa sustentabilidade.')
+            print('BAIXA SUSTENTABILIDADE.')
         else:
-            print('Moderada sustentabilidade.')
+            print('MODERADA SUSTENTABILIDADE.')
 
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE RECICLAGEM: ", end="")
 
         if medias[2] == len(tabela):
-            print('Alta sustentabilidade')
+            print('ALTA SUSTENTABILIDADE.')
         elif medias[2] == -len(tabela):
-            print('Baixa sustentabilidade.')
+            print('BAIXA SUSTENTABILIDADE.')
         else:
-            print('Moderada sustentabilidade.')
+            print('MODERADA SUSTENTABILIDADE.')
 
         print(f"CLASSIFICAÇÃO MÉDIA DE SUSTENTABILIDADE DE MEIO DE TRANSPORTE: ", end="")
 
         if medias[3] == len(tabela):
-            print('Alta sustentabilidade')
+            print('ALTA SUSTENTABILIDADE.')
         elif medias[3] == -len(tabela):
-            print('Baixa sustentabilidade.')
+            print('BAIXA SUSTENTABILIDADE.')
         else:
-            print('Moderada sustentabilidade.')
+            print('MODERADA SUSTENTABILIDADE.')

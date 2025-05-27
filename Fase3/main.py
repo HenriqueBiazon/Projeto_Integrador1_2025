@@ -11,7 +11,7 @@ apagarTerminal()
 sair = False
 while sair == False:
 
-    opcaoMenu = telaMenu() #Menu
+    opcaoMenu = telaMenu()
 
     apagarTerminal()
 
