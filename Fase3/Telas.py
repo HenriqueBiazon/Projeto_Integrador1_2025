@@ -134,11 +134,11 @@ def telaInserir(Id_usuario):
         try:
             print()
             print("INSIRA SEUS DADOS DE CONSUMO DE ÁGUA (L):")
-            consumo_agua = int(input("> "))
+            consumo_agua = float(input("> "))
             print()
 
             print("INSIRA SEUS DADOS DE CONSUMO DE ENERGIA (KwH):")
-            consumo_energia = int(input("> "))
+            consumo_energia = float(input("> "))
             print()
 
             print("INSIRA A PORCENTAGEM DE RESÍDUOS RECICLADOS (%):")
@@ -151,7 +151,7 @@ def telaInserir(Id_usuario):
             meios_transporte[0] = input('TRANSPORTE PÚBLICO: ').upper()
             meios_transporte[1] = input('BICICLETA: ').upper()
             meios_transporte[2] = input('CAMINHADA: ').upper()
-            meios_transporte[3] = input('CARRO (Combustível fóssil): ').upper
+            meios_transporte[3] = input('CARRO (Combustível fóssil): ').upper()
             meios_transporte[4] = input('CARRO ELÉTRICO: ').upper()
             meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil): ').upper()
             break
@@ -222,7 +222,7 @@ def telaAlterar(Id_usuario):
     print()
     print(f"CONSUMO DE ÁGUA: {diaSelecionado[2]}")
     print(f"CONSUMO DE ENERGIA: {diaSelecionado[3]}")
-    print(f"PORCENTAGEM DE RECICLAGEM: {diaSelecionado[4]}")
+    print(f"PORCENTAGEM DE RECICLAGEM: {diaSelecionado[4]}%")
     print()
     print("MEIOS DE TRANSPORTE UTILIZADOS:")
     print(f"TRANSPORTE PÚBLICO {diaSelecionado[5][0]}")
@@ -252,7 +252,7 @@ def telaAlterar(Id_usuario):
         print(f"ALTERANDO O CONSUMO DE ÁGUA DO DIA {diaSelecionado[1]}")
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ÁGUA (L):")
-        consumo_agua = int(input("> "))
+        consumo_agua = float(input("> "))
         consumo_agua = criptografar(consumo_agua)
         DBalter_dia(data, "consumo_agua", consumo_agua, Id_usuario)
 
@@ -262,7 +262,7 @@ def telaAlterar(Id_usuario):
         print(f"ALTERANDO O CONSUMO DE ENERGIA DO DIA {diaSelecionado[1]}")
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ENERGIA (KwH):")
-        consumo_energia = int(input("> "))
+        consumo_energia = float(input("> "))
         consumo_energia = criptografar(consumo_energia)
         DBalter_dia(data, "consumo_energia", consumo_energia, Id_usuario)
 
@@ -330,17 +330,18 @@ def telaExcluir(Id_usuario):
     print("(Digite 0 para voltar para o menu)\n")
     print("INSIRA A DATA PARA EXCLUIR (DD/MM/AAAA): ")
     data = input(">")
-    if data == "0":
+    
+    dataInvalida = True
+    while dataInvalida == True:
+        if data == "0":
             return
-    dataValida = False
-    while dataValida == False:
         for x in tabela:
             x = list(x)
             x[1] = descriptografar(x[1])
             if x[1] == data:
-                dataValida = True
+                dataInvalida = True
                 break
-        if not dataValida:
+        if not dataInvalida:
             print("\nERRO! Digite uma data já existente no sistema:\n")
             print("DATAS JÁ INSERIDAS:")
             for x in tabela:
@@ -363,7 +364,7 @@ def telaExcluir(Id_usuario):
     print()
     print(f"CONSUMO DE ÁGUA: {diaSelecionado[2]}")
     print(f"CONSUMO DE ENERGIA: {diaSelecionado[3]}")
-    print(f"PORCENTAGEM DE RECICLAGEM: {diaSelecionado[4]}")
+    print(f"PORCENTAGEM DE RECICLAGEM: {diaSelecionado[4]}%")
     print()
     print("MEIOS DE TRANSPORTE UTILIZADOS:")
     print(f"TRANSPORTE PÚBLICO {diaSelecionado[5][0]}")

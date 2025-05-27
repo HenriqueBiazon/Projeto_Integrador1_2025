@@ -1,14 +1,14 @@
 import mysql.connector
 def DBconnect():
     mydb = mysql.connector.connect(
-        #host="BD-ACD",
-        #user="BD180225117",
-        #password="Tdtgj9",
-        #database="BD180225117"
-        host="127.0.0.1",
-        user="root",
-        password="Jppm2006",
-        database="projeto_integrador_fase2"
+        host="BD-ACD",
+        user="BD180225117",
+        password="Tdtgj9",
+        database="BD180225117"
+        #host="127.0.0.1",
+        #user="root",
+        #password="Jppm2006",
+        #database="projeto_integrador_fase2"
     )
     return mydb
 
