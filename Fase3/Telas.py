@@ -151,7 +151,7 @@ def telaInserir(Id_usuario):
             meios_transporte[0] = input('TRANSPORTE PÚBLICO: ').upper()
             meios_transporte[1] = input('BICICLETA: ').upper()
             meios_transporte[2] = input('CAMINHADA: ').upper()
-            meios_transporte[3] = input('CARRO (Combustível fóssil): ').upper()
+            meios_transporte[3] = input('CARRO (Combustível fóssil): ').upper
             meios_transporte[4] = input('CARRO ELÉTRICO: ').upper()
             meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil): ').upper()
             break
@@ -249,7 +249,7 @@ def telaAlterar(Id_usuario):
     print()
 
     if opcaoAlterar == 1:
-        print(f"ALTERANDO O CONSUMO DE ÁGUA DO DIA {data}")
+        print(f"ALTERANDO O CONSUMO DE ÁGUA DO DIA {diaSelecionado[1]}")
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ÁGUA (L):")
         consumo_agua = int(input("> "))
@@ -259,7 +259,7 @@ def telaAlterar(Id_usuario):
         print("\nCONSUMO DE ÁGUA ALTERADO COM SUCESSO!")
 
     elif opcaoAlterar == 2:
-        print(f"ALTERANDO O CONSUMO DE ENERGIA DO DIA {data}")
+        print(f"ALTERANDO O CONSUMO DE ENERGIA DO DIA {diaSelecionado[1]}")
 
         print("\nINSIRA SEU DADO ALTERADO DE CONSUMO DE ENERGIA (KwH):")
         consumo_energia = int(input("> "))
@@ -269,7 +269,7 @@ def telaAlterar(Id_usuario):
         print("\nCONSUMO DE ENERGIA ALTERADO COM SUCESSO!")
 
     elif opcaoAlterar == 3:
-        print(f"ALTERANDO A PORCENTAGEM DE RECICLAGEM DO DIA {data}")
+        print(f"ALTERANDO A PORCENTAGEM DE RECICLAGEM DO DIA {diaSelecionado[1]}")
 
         print("\nINSIRA SUA PORCENTAGEM ALTERADA DE RECICLAGEM (%):")
         porcentagem_reciclagem = int(input("> "))
@@ -279,7 +279,7 @@ def telaAlterar(Id_usuario):
         print("\nPORCENTAGEM DE RECICLAGEM ALTERADA COM SUCESSO!")
 
     elif opcaoAlterar == 4:
-        print(f"ALTERANDO OS MEIOS DE TRANSPORTE UTILIZADOS NO DIA {data}")
+        print(f"ALTERANDO OS MEIOS DE TRANSPORTE UTILIZADOS NO DIA {diaSelecionado[1]}")
 
         print('\nQUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (S/N)')
 
@@ -409,7 +409,7 @@ def telaClassificar(Id_usuario):
           
                                         CLASSIFICAR
 -------------------------------------------------------------------------------------------
-|    1 - DIA ESPECÍFICO      |      2 - LISTAR TODOS       |   3 - MÉDIA DE CLASSIFICÃO   |
+|    1 - DIA ESPECÍFICO      |     2 - LISTAR TODOS      |   3 - MÉDIA DE CLASSIFICACÃO   |
 -------------------------------------------------------------------------------------------
 """)
 
@@ -480,6 +480,7 @@ def telaClassificar(Id_usuario):
             meios_transporte = string_meio_transporte.split(",")
             mediaDia = classificacaoDia(data, consumo_agua, consumo_energia, porcentagem_reciclagem, meios_transporte)
             medias = [medias[i] + mediaDia[i] for i in range(len(medias))]
+        apagarTerminal()
         print()
         print("-------------------------------------------------------------------------------------------")
         print("                       MÉDIA DA CLASSIFICAÇÃO DE TODOS OS DIAS:")
@@ -529,9 +530,9 @@ def telaLogin():
 |                        MONITORAMENTO DE SUSTENTABILIDADE PESSOAL                        |
 -------------------------------------------------------------------------------------------
 
-                                          LOG-IN                                           
+                                            LOG-IN                                           
 -------------------------------------------------------------------------------------------
-|                 1 - ENTRAR                 |               2 - CADASTRAR                |
+|                1 - CADASTRAR                 |                2 - ENTRAR                |
 -------------------------------------------------------------------------------------------""")
         try:
             opcaoLogin = int(input(">"))
@@ -545,7 +546,7 @@ def telaLogin():
             except:
                 opcaoLogin = 0
 
-        if opcaoLogin == 1:
+        if opcaoLogin == 2:
             print("\n                                         ENTRANDO:\n")
             nome = input("INSIRA O SEU NOME: ")
             senha = input("INSIRA SUA SENHA: ")

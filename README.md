@@ -87,9 +87,7 @@ Outro ponto importante foi a implementação de um sistema de criptografia para 
 
 ## Possíveis melhorias futuras
 
-- Implementar interface gráfica (GUI) para facilitar ainda mais o uso.
-- Adicionar relatórios e gráficos de desempenho sustentável do usuário.
+- Adicionar relatórios e gráficos de desempenho sustentável do usuário. (Tabelas)
 - Melhorar o sistema de autenticação e segurança.
-- Permitir exportação dos dados para outros formatos (CSV, PDF, etc).
 
 ---
