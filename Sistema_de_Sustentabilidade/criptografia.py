@@ -6,7 +6,7 @@ CHAVE = Matrix([[3, 2], [1, 1]])
 
 def texto_para_numeros(texto):
     texto = texto.upper()
-    return [ALFABETO.index(c) for c in texto if c in ALFABETO] #Cria uma lista das letras transformadas em números
+    return [ALFABETO.index(c) for c in texto if c in ALFABETO] #Cria uma lista das letras trasformadas em numeros
 
 def numeros_para_texto(numeros):
     return ''.join([ALFABETO[n % 26] for n in numeros])
@@ -31,7 +31,7 @@ def descriptografar(texto):
         matrizDescripto = chaveInversa * bloco
         resultado.extend([int(x) % 26 for x in matrizDescripto])
     descriptografado = numeros_para_texto(resultado)
-    # Remove o último caractere se for 'X', que foi colocado na função criptografar se a quantidade de letras do texto for impar
+    # Remove o ultimo caractere se for 'X', que foi colocado na função criptografar se a quantidade de letras do texto for impar
     if descriptografado.endswith("X"):
         descriptografado = descriptografado[:-1]
     return descriptografado
