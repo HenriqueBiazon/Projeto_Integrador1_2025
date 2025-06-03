@@ -120,7 +120,6 @@ def telaInserir():
             if not x.isdigit():
                 dataInvalida = True
                 break
-            #Teria que fazer mais verificações
         if dataInvalida:
             print("\nERRO! Digite uma data válida:\n")
             print("DATAS JÁ INSERIDAS:")
