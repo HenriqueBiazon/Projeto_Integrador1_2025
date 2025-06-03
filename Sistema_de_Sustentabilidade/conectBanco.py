@@ -26,7 +26,7 @@ def DBinsert_dados(data, consumo_agua, consumo_energia, porcentagem_reciclagem, 
 def DBselect(): #SELECIONA A TABELA INTEIRA
     cursor = MYDB.cursor()
 
-    sql = f'SELECT * FROM dados_sustentabilidade'
+    sql = "SELECT * FROM dados_sustentabilidade ORDER BY STR_TO_DATE(data, '%d/%m/%Y') ASC"
     cursor.execute(sql)
     myresult = cursor.fetchall()
     return myresult
