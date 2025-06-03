@@ -109,6 +109,8 @@ def telaInserir():
             return
         if len(tabela) == 0:
             dataInvalida = False
+        digitosData = data.split("/")
+        
         for x in tabela:
             if x[1] == data:
                 dataInvalida = True
@@ -127,26 +129,29 @@ def telaInserir():
         try:
             print()
             print("INSIRA SEUS DADOS DE CONSUMO DE ÁGUA (L):")
+            print("|0--ALTA--150--MODERADA--200--BAIXA---|")
             consumo_agua = float(input("> "))
             print()
 
             print("INSIRA SEUS DADOS DE CONSUMO DE ENERGIA (KwH):")
+            print("|0--ALTA--5--MODERADA--10--BAIXA---|")
             consumo_energia = float(input("> "))
             print()
 
             print("INSIRA A PORCENTAGEM DE RESÍDUOS RECICLADOS (%):")
+            print("|100--ALTA--50--MODERADA--20--BAIXA---|")
             porcentagem_reciclagem = int(input("> "))
             print()
 
             print('QUAIS MEIOS DE TRANSPORTE VOCÊ USOU HOJE? (S/N)')
             meios_transporte = ['', '', '', '', '', '']
 
-            meios_transporte[0] = input('TRANSPORTE PÚBLICO: ').upper()
-            meios_transporte[1] = input('BICICLETA: ').upper()
-            meios_transporte[2] = input('CAMINHADA: ').upper()
-            meios_transporte[3] = input('CARRO (Combustível fóssil): ').upper()
-            meios_transporte[4] = input('CARRO ELÉTRICO: ').upper()
-            meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil): ').upper()
+            meios_transporte[0] = input('TRANSPORTE PÚBLICO (ALTA): ').upper()
+            meios_transporte[1] = input('BICICLETA (ALTA): ').upper()
+            meios_transporte[2] = input('CAMINHADA (ALTA): ').upper()
+            meios_transporte[3] = input('CARRO (Combustível fóssil) (BAIXA): ').upper()
+            meios_transporte[4] = input('CARRO ELÉTRICO (ALTA): ').upper()
+            meios_transporte[5] = input('CARONA COMPARTILHADA (Combustível fóssil) (BAIXA): ').upper()
             break
         except:
             print("ERRO! O dado inserido está inválido")
