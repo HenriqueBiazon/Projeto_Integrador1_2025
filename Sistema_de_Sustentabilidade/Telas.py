@@ -396,17 +396,17 @@ def caucularMediaDia(data):
     if classificacao_energia == "ALTA":
         medias[1] += 1
     elif classificacao_energia == "MODERADA":
-        medias[0] += 0
+        medias[1] += 0
     else:
         medias[1] -= 1
     if classificacao_reciclagem == "ALTA":
         medias[2] += 1
     elif classificacao_reciclagem == "MODERADA":
-        medias[0] += 0
+        medias[2] += 0
     else:
         medias[2] -= 1
     if classificacao_transporte == "ALTA":
-        medias[0] += 1
+        medias[3] += 1
     elif classificacao_transporte == "MODERADA":
         medias[3] += 0
     else:
